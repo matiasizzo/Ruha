@@ -1,0 +1,8 @@
+Logos de las marcas de franquicia, en PNG de alta resolución.
+
+Los pasa el cliente: Wyndham, Ramada, Dazzler, Holiday Inn y Vöco. No se bajan
+de internet.
+
+Una vez cargados, se referencian desde `brands` en src/content/site.ts con la
+ruta `/brands/<archivo>.png`. Mientras el campo `logo` esté vacío, la marca se
+muestra como texto, que no requiere aprobación del franquiciante.

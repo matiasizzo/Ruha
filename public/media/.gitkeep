@@ -1,0 +1,9 @@
+Fotografía y video del sitio.
+
+Prioridad de carga, según lo que más mueve la aguja:
+  1. Retratos de los tres socios
+  2. IXUH Beach Living y Macondo 5ta Avenida (las propiedades en operación)
+  3. Renders de Casa Selva y Dazzler Playa del Carmen
+
+Una vez cargadas, se referencian desde `properties` en src/content/site.ts con
+la ruta `/media/<archivo>`. Sin `image`, la tarjeta usa su degradado de marca.
