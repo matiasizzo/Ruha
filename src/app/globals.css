@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/*
+  Identidad RÜHA (agencia Monarca). Los cinco colores son los de marca; el
+  resto son derivados para superficies y estados, no colores nuevos.
+
+  El sitio vive en un solo mundo visual —café oscuro— por decisión de
+  dirección de arte, así que no hay tema claro/oscuro conmutable: cada color
+  se declara explícitamente.
+*/
+@theme {
+  --color-cacao: #271406; /* café oscuro, fondo principal */
+  --color-cacao-deep: #180B02; /* derivado, para capas y pie */
+  --color-cacao-raised: #33200F; /* derivado, superficies elevadas */
+  --color-cafe: #885b3d; /* café medio */
+  --color-terra: #a54f0c; /* terracota */
+  --color-gold: #daad4b; /* dorado / mostaza */
+  --color-cream: #edebdf; /* crema */
+  --color-cream-dim: rgba(237, 235, 223, 0.66);
+  --color-cream-faint: rgba(237, 235, 223, 0.42);
+  --color-hairline: rgba(237, 235, 223, 0.14);
+  --color-hairline-strong: rgba(237, 235, 223, 0.28);
+
+  --font-sans: var(--font-poppins), "Century Gothic", "Avenir Next", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Evita que el header fijo tape los anclajes. */
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    background-color: var(--color-cacao);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-cacao);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  /* Etiqueta monoespaciada: la voz "operativa" del sitio. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-cream-faint);
+  }
+
+  /* Titular de sección. El tamaño fluido evita saltos entre breakpoints. */
+  .display {
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--color-hairline);
+  }
+
+  /* Textura sutil sobre los fondos planos, para que el café no se vea digital. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  /* Revelado al entrar en pantalla. El estado inicial sólo se aplica cuando
+     JS está activo (data-reveal lo marca), para no ocultar contenido si falla. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s var(--ease-out-soft),
+      transform 0.9s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal="shown"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Deriva lenta del fondo del hero: atmósfera, no animación protagonista. */
+  @keyframes drift {
+    0% {
+      transform: scale(1.06) translate3d(0, 0, 0);
+    }
+    100% {
+      transform: scale(1.14) translate3d(-1.5%, -2%, 0);
+    }
+  }
+
+  .animate-drift {
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 1.1s var(--ease-out-soft) both;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Pulso de los destinos del mapa. */
+  @keyframes map-pulse {
+    0% {
+      r: 8px;
+      opacity: 0.55;
+    }
+    70% {
+      r: 24px;
+      opacity: 0;
+    }
+    100% {
+      r: 8px;
+      opacity: 0;
+    }
+  }
+
+  .map-pulse {
+    animation: map-pulse 4.5s ease-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .animate-drift,
+  .animate-fade-up,
+  .map-pulse {
+    animation: none;
+  }
+
+  .map-pulse {
+    opacity: 0;
+  }
+}
