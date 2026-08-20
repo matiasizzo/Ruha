@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 /**
  * Isotipo de RÜHA: la gota.
  *
@@ -49,9 +51,11 @@ const STROKES = [
 export default function Isotipo({
   layer = "full",
   className = "",
+  style,
 }: {
   layer?: Layer;
   className?: string;
+  style?: CSSProperties;
 }) {
   const show = (which: Layer) => layer === "full" || layer === which;
 
@@ -59,6 +63,7 @@ export default function Isotipo({
     <svg
       viewBox="0 0 100 148"
       className={className}
+      style={style}
       fill="none"
       aria-hidden="true"
       focusable="false"
