@@ -143,7 +143,7 @@ export function ZoomParallax({
                       {image.label && (
                         <motion.figcaption
                           style={{ opacity: labelOpacity }}
-                          className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-cream-faint"
+                          className="mt-2 text-[12px] tracking-normal text-cream-faint"
                         >
                           {image.label}
                         </motion.figcaption>

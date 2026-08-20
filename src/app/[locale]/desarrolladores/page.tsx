@@ -62,9 +62,9 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
               }
             />
           </Reveal>
-          <div className="grid gap-px self-start border border-hairline bg-hairline sm:grid-cols-2">
+          <div className="grid gap-4 self-start sm:grid-cols-2">
             {services.map((service, index) => (
-              <Reveal key={index} delay={index * 60} className="bg-cacao px-6 py-7">
+              <Reveal key={index} delay={index * 60} className="panel px-6 py-7">
                 <p className="text-[15px] leading-snug text-cream">{t(service, locale)}</p>
               </Reveal>
             ))}
@@ -89,7 +89,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
               as="li"
               className="grid gap-4 border-t border-hairline py-8 lg:grid-cols-[80px_minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-10"
             >
-              <span className="font-mono text-[12px] tabular text-terra">
+              <span className="font-display text-[15px] italic tabular text-terra">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="text-h3 font-medium leading-tight text-cream">
@@ -109,9 +109,9 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
           />
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-2 gap-px border border-hairline bg-hairline lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {stats.map((stat, index) => (
-            <Reveal key={index} delay={index * 80} className="bg-cacao px-6 py-10">
+            <Reveal key={index} delay={index * 80} className="panel px-6 py-10">
               <p className="display text-[clamp(2.25rem,5vw,3.75rem)] text-cream">
                 <Counter value={stat.value} />
               </p>
@@ -127,7 +127,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
         </Reveal>
 
         {mainCase && (
-          <Reveal className="mt-16 border border-hairline bg-cacao-raised/40 p-8 lg:p-12">
+          <Reveal className="mt-16 rounded-lg border border-hairline bg-cacao-raised/40 p-8 lg:p-12">
             <p className="eyebrow mb-5">{locale === "es" ? "Caso" : "Case"}</p>
             <h3 className="display max-w-3xl text-h2 text-cream">
               {t(mainCase.title, locale)}
@@ -154,7 +154,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
             </dl>
             <Link
               href={href(locale, routes.cases)}
-              className="mt-10 inline-block font-mono text-[10px] uppercase tracking-[0.16em] text-cream-dim underline underline-offset-4 transition-colors hover:text-gold"
+              className="mt-10 inline-block text-[13px] tracking-normal text-cream-dim underline underline-offset-4 transition-colors hover:text-gold"
             >
               {ui("cases", locale)} →
             </Link>

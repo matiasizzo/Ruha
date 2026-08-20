@@ -66,7 +66,7 @@ export default function Header({ locale }: { locale: Locale }) {
               <Link
                 key={code}
                 href={swapLocale(code)}
-                className={`font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                className={`text-[13px] tracking-normal transition-colors ${
                   code === locale ? "text-cream" : "text-cream-faint hover:text-cream-dim"
                 }`}
                 hrefLang={code}
@@ -80,14 +80,14 @@ export default function Header({ locale }: { locale: Locale }) {
             href={brand.ownersPortalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden border border-hairline-strong px-4 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-cream-dim transition-colors hover:border-gold hover:text-gold xl:block"
+            className="hidden rounded-full border border-hairline-strong px-5 py-2.5 text-[13px] text-cream-dim transition-colors hover:border-gold hover:text-gold xl:block"
           >
             {ui("ownersPortal", locale)}
           </a>
 
           <Link
             href={href(locale, routes.deck)}
-            className="hidden bg-terra px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-cream transition-colors hover:bg-gold hover:text-cacao md:block"
+            className="hidden rounded-full bg-terra px-6 py-2.5 text-[13px] font-medium text-cream transition-colors hover:bg-gold hover:text-cacao md:block"
           >
             {ui("downloadDeck", locale)}
           </Link>
@@ -148,7 +148,7 @@ export default function Header({ locale }: { locale: Locale }) {
               <Link
                 key={code}
                 href={swapLocale(code)}
-                className={`font-mono text-[12px] uppercase tracking-[0.16em] ${
+                className={`text-[14px] uppercase ${
                   code === locale ? "text-gold" : "text-cream-faint"
                 }`}
                 hrefLang={code}

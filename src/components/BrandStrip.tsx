@@ -12,9 +12,9 @@ import { t } from "@/lib/i18n";
  */
 export default function BrandStrip({ locale, showSegment = false }: { locale: Locale; showSegment?: boolean }) {
   return (
-    <ul className="grid grid-cols-2 gap-px border border-hairline bg-hairline sm:grid-cols-4">
+    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4">
       {brands.map((brandItem) => (
-        <li key={brandItem.id} className="flex flex-col gap-2 bg-cacao px-5 py-7 text-center">
+        <li key={brandItem.id} className="panel flex flex-col gap-2 px-5 py-7 text-center">
           {brandItem.logo ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -25,7 +25,7 @@ export default function BrandStrip({ locale, showSegment = false }: { locale: Lo
           ) : (
             <span className="text-[15px] font-medium text-cream">{brandItem.name}</span>
           )}
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-cream-faint">
+          <span className="text-[13px] tracking-normal text-cream-faint">
             {brandItem.group}
           </span>
           {showSegment && (

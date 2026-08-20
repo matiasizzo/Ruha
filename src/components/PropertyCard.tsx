@@ -49,7 +49,7 @@ export default function PropertyCard({
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
           <span
-            className={`font-mono text-[10px] uppercase tracking-[0.14em] ${
+            className={`text-[13px] tracking-normal ${
               isOperating ? "text-gold" : "text-cream-dim"
             }`}
           >
@@ -62,7 +62,7 @@ export default function PropertyCard({
             hasta entonces va el nombre en texto, que no requiere permiso. */}
         {property.brandLabel && (
           <div className="absolute inset-x-0 bottom-0 border-t border-hairline bg-cacao-deep/72 px-4 py-2.5 backdrop-blur-sm">
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-cream-dim">
+            <span className="text-[13px] tracking-normal text-cream-dim">
               {property.brandLabel}
             </span>
           </div>
@@ -71,7 +71,7 @@ export default function PropertyCard({
 
       <div className="flex flex-1 flex-col gap-2 p-5">
         <h3 className="text-h3 font-medium leading-tight text-cream">{property.name}</h3>
-        <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-cream-faint">
+        <p className="text-[13px] tracking-normal text-cream-faint">
           {t(property.city, locale)} · {t(property.state, locale)}
           {meta.length > 0 && ` · ${meta.join(" · ")}`}
         </p>
@@ -79,12 +79,12 @@ export default function PropertyCard({
           {t(property.summary, locale)}
         </p>
         {property.opening && (
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-terra">
+          <p className="mt-1 text-[13px] tracking-normal text-terra">
             {t(property.opening, locale)}
           </p>
         )}
         {property.href && (
-          <span className="mt-auto pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-cream-faint transition-colors group-hover:text-gold">
+          <span className="mt-auto pt-4 text-[13px] tracking-normal text-cream-faint transition-colors group-hover:text-gold">
             {ui("visitSite", locale)} ↗
           </span>
         )}
@@ -93,7 +93,7 @@ export default function PropertyCard({
   );
 
   const className =
-    "group flex flex-col overflow-hidden border border-hairline bg-cacao-raised/40 transition-colors duration-500 hover:border-hairline-strong";
+    "group flex flex-col overflow-hidden rounded-3xl border border-hairline bg-cacao-raised/40 transition-colors duration-500 hover:border-hairline-strong";
 
   if (!property.href) {
     return <article className={className}>{inner}</article>;

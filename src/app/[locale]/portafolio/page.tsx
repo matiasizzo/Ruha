@@ -47,7 +47,7 @@ export default async function PortfolioPage({ params }: { params: Promise<{ loca
           </p>
           <Link
             href={href(locale, routes.openings)}
-            className="mt-8 inline-block border border-hairline-strong px-6 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cream transition-colors hover:border-gold hover:text-gold"
+            className="mt-8 inline-block border border-hairline-strong px-6 py-3 text-[13px] tracking-normal text-cream transition-colors hover:border-gold hover:text-gold"
           >
             {ui("openings", locale)}
           </Link>

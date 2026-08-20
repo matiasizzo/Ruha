@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
  *  - cursor-pointer, que faltaba.
  *  - Una flecha que se corre en hover: el movimiento apunta a dónde lleva el
  *    botón en lugar de sólo cambiar de color.
+ *  - Forma de píldora. El rectángulo a noventa grados con etiqueta en
+ *    monoespaciada era el gesto más industrial de todo el sitio.
  *  - Foco visible heredado del global, sin anularlo nunca.
  */
 
@@ -23,14 +25,14 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "md" | "sm";
 
 const base =
-  "inline-flex min-h-12 cursor-pointer items-center justify-center gap-2.5 " +
-  "font-mono text-label uppercase tracking-[0.16em] " +
-  "transition-[background-color,border-color,color,transform] duration-200 ease-out " +
+  "inline-flex min-h-12 cursor-pointer items-center justify-center gap-2.5 rounded-full " +
+  "text-[15px] font-medium tracking-normal " +
+  "transition-[background-color,border-color,color,transform,box-shadow] duration-200 ease-out " +
   "active:translate-y-px disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
   // La acción principal: bloque de crema que vira a dorado.
-  primary: "bg-cream text-cacao hover:bg-gold",
+  primary: "bg-cream text-cacao shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)] hover:bg-gold",
   // La alternativa: filete que se enciende.
   secondary:
     "border border-hairline-strong text-cream hover:border-gold hover:bg-gold/[0.06] hover:text-gold",
@@ -39,8 +41,8 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  md: "px-7 py-4",
-  sm: "px-5 py-3",
+  md: "px-8 py-4",
+  sm: "px-6 py-3",
 };
 
 type CommonProps = {

@@ -25,56 +25,63 @@
   --color-hairline-strong: rgba(237, 235, 223, 0.28);
 
   /*
-    Tres roles tipográficos, no uno.
+    Dos familias, ninguna monoespaciada.
 
-    Poppins es la tipografía de la identidad de Monarca y sigue siendo la voz
-    de la marca: titulares, cifras y wordmark. Pero es una geométrica de
-    display —ancha, de trazo uniforme— y en párrafos largos se lee plana. De
-    ahí que el texto corrido pase a una serif de texto, que además le da al
-    sitio el registro editorial que una operadora de hotelería de diseño
-    necesita.
+    La monoespaciada era el problema. Etiquetas en mono, retículas de filetes y
+    esquinas a noventa grados son el vocabulario de un panel técnico, no el de
+    una casa que opera hoteles. Fuera.
 
-    PENDIENTE DE APROBACIÓN: sumar una segunda familia es una decisión de
-    marca. Si Monarca la rechaza, es cambiar --font-serif por --font-sans acá
-    y el sitio vuelve a una sola familia sin tocar nada más.
+    Fraunces lleva los titulares: es una serif de trazo blando, con remates
+    redondeados y algo de irregularidad deliberada. Es lo que pone la calidez
+    que la geométrica sola no puede dar.
+
+    Poppins —la tipografía de la identidad de Monarca— se queda en texto e
+    interfaz, que es donde una geométrica sí rinde.
+
+    PENDIENTE DE APROBACIÓN: sumar Fraunces es una decisión de marca.
   */
-  --font-sans: var(--font-poppins), "Century Gothic", "Avenir Next", system-ui, sans-serif;
-  --font-serif: var(--font-source-serif), "Iowan Old Style", Georgia, serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-poppins), "Avenir Next", system-ui, sans-serif;
 
   /*
-    Escala tipográfica. Antes cada componente inventaba su propio clamp(), que
-    es exactamente de dónde salía la sensación de tipografía genérica: sin
-    escala no hay jerarquía, sólo tamaños sueltos.
+    Radios. El sitio no tenía ninguno, y esa es la mitad de la sensación
+    industrial. Se usan generosos y desparejos entre piezas, no un único radio
+    aplicado a todo por igual.
   */
-  --text-display: clamp(2.75rem, 7.4vw, 6.5rem);
-  --text-display--line-height: 0.94;
-  --text-display--letter-spacing: -0.035em;
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.18), 0 24px 48px -24px rgba(0, 0, 0, 0.55);
+
+  --text-display: clamp(2.75rem, 7.4vw, 6.25rem);
+  --text-display--line-height: 1.0;
+  --text-display--letter-spacing: -0.02em;
 
   --text-h1: clamp(2rem, 4.6vw, 3.5rem);
-  --text-h1--line-height: 1.02;
-  --text-h1--letter-spacing: -0.028em;
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.015em;
 
   --text-h2: clamp(1.625rem, 3.2vw, 2.5rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.022em;
+  --text-h2--line-height: 1.14;
+  --text-h2--letter-spacing: -0.012em;
 
-  --text-h3: 1.1875rem;
-  --text-h3--line-height: 1.3;
-  --text-h3--letter-spacing: -0.01em;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.35;
+  --text-h3--letter-spacing: -0.005em;
 
   --text-lead: clamp(1.0625rem, 1.5vw, 1.3125rem);
-  --text-lead--line-height: 1.6;
+  --text-lead--line-height: 1.65;
 
   --text-body: 1rem;
-  --text-body--line-height: 1.7;
+  --text-body--line-height: 1.72;
 
   --text-small: 0.875rem;
   --text-small--line-height: 1.65;
 
-  --text-label: 0.6875rem;
-  --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.18em;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.3;
 
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -108,47 +115,63 @@
   h1,
   h2,
   h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
     text-wrap: balance;
+  }
+
+  /* El foco redondea igual que la pieza que rodea. */
+  :focus-visible {
+    border-radius: var(--radius-sm);
   }
 }
 
 @layer components {
-  /* Etiqueta monoespaciada: la voz "operativa" del sitio. */
+  /*
+    Etiqueta de sección. Antes iba en monoespaciada y mayúsculas: es el gesto
+    que más "panel de control" aportaba. Ahora va en la serif, en cursiva y en
+    caja baja, que es como se titula en una carta o en una revista.
+  */
   .eyebrow {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
+    font-style: italic;
     font-size: var(--text-label);
-    letter-spacing: var(--text-label--letter-spacing);
-    text-transform: uppercase;
-    color: var(--color-cream-faint);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-gold);
   }
 
-  /*
-    Titular. Peso 500 y no 600: en una geométrica, el semibold a tamaño grande
-    engorda el contorno y le saca el aire que hace que se vea cara.
-  */
+  /* Titular. La serif de display es la que pone la calidez. */
   .display {
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-weight: 400;
     letter-spacing: var(--text-display--letter-spacing);
-    line-height: 0.98;
+    line-height: 1.04;
   }
 
-  /*
-    Párrafo de entrada. Es donde entra la serif: los textos que llevan la voz
-    de la casa, no los de interfaz.
-  */
+  /* Párrafo de entrada. */
   .lead {
-    font-family: var(--font-serif);
     font-size: var(--text-lead);
-    line-height: 1.62;
+    line-height: 1.65;
     color: var(--color-cream-dim);
   }
 
   /* Texto corrido. */
   .prose-body {
-    font-family: var(--font-serif);
     font-size: var(--text-body);
     line-height: 1.72;
     color: var(--color-cream-dim);
+  }
+
+  /*
+    Pieza. Sustituye a las retículas de recuadros pegados por filete, que era
+    la otra mitad de la sensación industrial.
+  */
+  .panel {
+    background: color-mix(in srgb, var(--color-cacao-raised) 55%, transparent);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
   }
 
   .rule {

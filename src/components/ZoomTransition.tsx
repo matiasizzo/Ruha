@@ -29,7 +29,7 @@ export default function ZoomTransition({ locale }: { locale: Locale }) {
             {brand.name}
           </p>
           <p
-            className="font-mono uppercase tracking-[0.18em] text-cream-faint"
+            className="italic text-cream-faint"
             style={{ fontSize: "0.85vh" }}
           >
             {t(brand.tagline, locale)}

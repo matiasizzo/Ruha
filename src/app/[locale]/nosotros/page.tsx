@@ -69,9 +69,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             title={locale === "es" ? "Propósito, rumbo y método" : "Purpose, direction and method"}
           />
         </Reveal>
-        <div className="mt-14 grid gap-px border border-hairline bg-hairline lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {purpose.map((item, index) => (
-            <Reveal key={index} delay={index * 100} className="bg-cacao-deep p-8 lg:p-10">
+            <Reveal key={index} delay={index * 100} className="panel p-8 lg:p-10">
               <p className="eyebrow mb-5">{t(item.label, locale)}</p>
               <p className="text-[17px] leading-relaxed text-cream lg:text-[19px]">
                 {t(item.body, locale)}
@@ -128,7 +128,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               />
               <div>
                 <h3 className="text-h3 font-medium text-cream">{member.name}</h3>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-gold">
+                <p className="mt-1 text-[13px] tracking-normal text-gold">
                   {t(member.role, locale)}
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-cream-dim">

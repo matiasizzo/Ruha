@@ -16,7 +16,7 @@ export default function Footer({ locale }: { locale: Locale }) {
             <p className="mt-4 text-sm leading-relaxed text-cream-dim">
               {t(brand.tagline, locale)}
             </p>
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-cream-faint">
+            <p className="mt-6 text-[13px] tracking-normal text-cream-faint">
               {brand.legalName}
             </p>
           </div>
@@ -86,10 +86,10 @@ export default function Footer({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cream-faint">
+          <p className="text-[13px] tracking-normal text-cream-faint">
             © {year} {brand.name}
           </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cream-faint">
+          <p className="text-[13px] tracking-normal text-cream-faint">
             {locale === "es" ? "Riviera Maya · México" : "Riviera Maya · Mexico"}
           </p>
         </div>

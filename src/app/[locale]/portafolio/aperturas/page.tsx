@@ -69,7 +69,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                 <h2 className="display text-h2 text-cream">
                   {property.name}
                 </h2>
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cream-faint">
+                <p className="text-[13px] tracking-normal text-cream-faint">
                   {t(property.city, locale)} · {t(property.state, locale)}
                   {property.keys ? ` · ${property.keys} ${ui("keys", locale)}` : ""}
                 </p>
@@ -92,7 +92,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
 
                 <div className="mt-4 flex flex-wrap items-center gap-4">
                   {property.opening && (
-                    <span className="border border-terra px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-terra">
+                    <span className="border border-terra px-4 py-2 text-[13px] tracking-normal text-terra">
                       {t(property.opening, locale)}
                     </span>
                   )}
@@ -101,7 +101,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                       href={property.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[10px] uppercase tracking-[0.16em] text-cream-dim underline underline-offset-4 transition-colors hover:text-gold"
+                      className="text-[13px] tracking-normal text-cream-dim underline underline-offset-4 transition-colors hover:text-gold"
                     >
                       {ui("visitSite", locale)} ↗
                     </a>

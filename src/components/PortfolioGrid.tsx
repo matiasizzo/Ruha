@@ -71,7 +71,7 @@ function FilterButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`border px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] transition-colors ${
+      className={`border px-5 py-2.5 text-[13px] tracking-normal transition-colors ${
         active
           ? "border-gold bg-gold text-cacao"
           : "border-hairline text-cream-dim hover:border-hairline-strong hover:text-cream"

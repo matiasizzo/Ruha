@@ -55,7 +55,7 @@ export default async function WhatWeDoPage({ params }: { params: Promise<{ local
                 <h3 className="display text-h2 text-cream">
                   {t(model.title, locale)}
                 </h3>
-                <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-terra">
+                <p className="mt-4 text-[13px] tracking-normal text-terra">
                   {t(model.example, locale)}
                 </p>
               </div>
@@ -80,9 +80,9 @@ export default async function WhatWeDoPage({ params }: { params: Promise<{ local
             title={locale === "es" ? "Lo que entra en el contrato" : "What the contract covers"}
           />
         </Reveal>
-        <ul className="mt-12 grid gap-px border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
-            <Reveal key={index} delay={index * 60} as="li" className="bg-cacao-deep px-6 py-8">
+            <Reveal key={index} delay={index * 60} as="li" className="panel px-6 py-8">
               <p className="text-[16px] leading-snug text-cream">{t(service, locale)}</p>
             </Reveal>
           ))}

@@ -82,7 +82,7 @@ function FloatingCard({
       </div>
       <figcaption className="mt-2">
         <p className="whitespace-nowrap text-[12px] font-medium text-cream/80">{label}</p>
-        <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cream-faint">{meta}</p>
+        <p className="text-[12px] tracking-normal text-cream-faint">{meta}</p>
       </figcaption>
     </figure>
   );

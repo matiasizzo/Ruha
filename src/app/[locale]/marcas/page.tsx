@@ -74,9 +74,9 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
           <BrandStrip locale={locale} showSegment />
         </Reveal>
 
-        <div className="mt-16 grid gap-px border border-hairline bg-hairline lg:grid-cols-2">
+        <div className="mt-16 grid gap-4 lg:grid-cols-2">
           {brandGroups.map((group, index) => (
-            <Reveal key={group.id} delay={index * 100} className="bg-cacao p-8 lg:p-12">
+            <Reveal key={group.id} delay={index * 100} className="panel p-8 lg:p-12">
               <h2 className="display text-h2 text-cream">{group.name}</h2>
               <p className="mt-5 text-[16px] leading-relaxed text-cream-dim">
                 {t(group.blurb, locale)}
@@ -87,7 +87,7 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
                   .map((item) => (
                     <li
                       key={item.id}
-                      className="border border-hairline px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-cream-dim"
+                      className="border border-hairline px-4 py-2 text-[13px] tracking-normal text-cream-dim"
                     >
                       {item.name}
                     </li>
@@ -109,9 +109,9 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
             }
           />
         </Reveal>
-        <div className="mt-14 grid gap-px border border-hairline bg-hairline sm:grid-cols-2">
+        <div className="mt-14 grid gap-4 sm:grid-cols-2">
           {benefits.map((benefit, index) => (
-            <Reveal key={index} delay={index * 90} className="bg-cacao-deep p-8 lg:p-10">
+            <Reveal key={index} delay={index * 90} className="panel p-8 lg:p-10">
               <h3 className="text-h3 font-medium text-cream">{t(benefit.title, locale)}</h3>
               <p className="mt-4 text-[15px] leading-relaxed text-cream-dim">
                 {t(benefit.body, locale)}

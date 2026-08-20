@@ -10,9 +10,9 @@ import Reveal from "./Reveal";
  */
 export default function StatsBand({ locale }: { locale: Locale }) {
   return (
-    <div className="grid grid-cols-2 gap-px border border-hairline bg-hairline lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       {stats.map((stat, index) => (
-        <Reveal key={index} delay={index * 90} className="bg-cacao px-6 py-10 lg:px-8 lg:py-12">
+        <Reveal key={index} delay={index * 90} className="panel px-6 py-10 lg:px-8 lg:py-12">
           <p className="display text-[clamp(2.75rem,6vw,4.5rem)] text-cream">
             <Counter value={stat.value} />
             {stat.suffix}

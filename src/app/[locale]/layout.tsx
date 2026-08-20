@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Source_Serif_4 } from "next/font/google";
+import { Fraunces, Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/content/site";
 import { brand } from "@/content/site";
@@ -8,8 +8,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "../globals.css";
 
-// Poppins es la tipografía de la identidad de Monarca: lleva la voz de la
-// marca —titulares, cifras, wordmark—.
+// Poppins es la tipografía de la identidad de Monarca. Se queda en texto e
+// interfaz, que es donde una geométrica rinde.
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
@@ -17,13 +17,14 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// La serif de texto corrido. Source Serif tiene el trazo lo bastante sólido
-// como para no desaparecer sobre fondo oscuro, que es donde fallan la mayoría.
-const sourceSerif = Source_Serif_4({
+// Fraunces lleva los titulares. Es una serif de trazo blando con remates
+// redondeados: pone la calidez que una geométrica sola no puede dar, y es lo
+// contrario del registro industrial que tenía el sitio.
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["300", "400", "600"],
+  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
-  variable: "--font-source-serif",
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -79,7 +80,7 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   return (
-    <html lang={locale} className={`${poppins.variable} ${sourceSerif.variable}`}>
+    <html lang={locale} className={`${poppins.variable} ${fraunces.variable}`}>
       <body className="min-h-screen bg-cacao">
         <a
           href="#main"

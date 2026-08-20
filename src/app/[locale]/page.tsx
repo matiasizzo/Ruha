@@ -108,14 +108,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           />
         </Reveal>
 
-        <div className="mt-14 grid gap-px border border-hairline bg-hairline lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {operatingModels.map((model, index) => (
-            <Reveal key={model.id} delay={index * 100} className="flex flex-col gap-4 bg-cacao p-8 lg:p-10">
+            <Reveal key={model.id} delay={index * 100} className="flex flex-col gap-4 panel p-8 lg:p-10">
               <h3 className="text-h3 font-medium leading-tight text-cream">
                 {t(model.title, locale)}
               </h3>
               <p className="prose-body text-small">{t(model.body, locale)}</p>
-              <p className="mt-auto pt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-terra">
+              <p className="mt-auto pt-6 text-[13px] tracking-normal text-terra">
                 {t(model.example, locale)}
               </p>
             </Reveal>
@@ -213,7 +213,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               />
               <div>
                 <h3 className="text-h3 font-medium text-cream">{member.name}</h3>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-gold">
+                <p className="mt-1 text-[13px] tracking-normal text-gold">
                   {t(member.role, locale)}
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-cream-dim">

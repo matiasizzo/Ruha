@@ -80,14 +80,14 @@ export default function LeadForm({ kind, locale }: { kind: LeadKind; locale: Loc
 
   if (state === "done") {
     return (
-      <div className="border border-gold/50 bg-cacao-raised/60 p-8">
+      <div className="rounded-3xl border border-gold/50 bg-cacao-raised/60 p-8">
         <p className="text-[17px] leading-relaxed text-cream">{successLabel[kind][locale]}</p>
       </div>
     );
   }
 
   const field =
-    "w-full border border-hairline bg-cacao-deep px-4 py-3.5 text-[15px] text-cream placeholder:text-cream-faint focus:border-gold focus:outline-none";
+    "w-full rounded-2xl border border-hairline bg-cacao-deep px-5 py-3.5 text-[15px] text-cream placeholder:text-cream-faint focus:border-gold focus:outline-none";
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -159,7 +159,7 @@ export default function LeadForm({ kind, locale }: { kind: LeadKind; locale: Loc
       </label>
 
       {state === "error" && (
-        <p className="border border-terra/60 bg-terra/10 px-4 py-3 text-[14px] text-cream">
+        <p className="rounded-2xl border border-terra/60 bg-terra/10 px-5 py-3 text-[14px] text-cream">
           {labels.errorGeneric[locale]}
         </p>
       )}
@@ -167,7 +167,7 @@ export default function LeadForm({ kind, locale }: { kind: LeadKind; locale: Loc
       <button
         type="submit"
         disabled={state === "sending"}
-        className="mt-2 self-start bg-cream px-8 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-cacao transition-colors hover:bg-gold disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-2 min-h-12 cursor-pointer self-start rounded-full bg-cream px-8 py-4 text-[15px] font-medium text-cacao transition-colors hover:bg-gold active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60"
       >
         {state === "sending" ? labels.sending[locale] : submitLabel[kind][locale]}
       </button>
