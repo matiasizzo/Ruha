@@ -45,12 +45,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             />
           </Reveal>
           <Reveal delay={100} className="flex flex-col gap-6">
-            <p className="text-[17px] leading-relaxed text-cream-dim lg:text-[19px]">
+            <p className="lead">
               {locale === "es"
                 ? "Nacimos administrando villas boutique de renta vacacional en la Riviera Maya. Ese trabajo —trato directo con el propietario, cuidado del activo, cuentas claras cada mes— es el que nos enseñó el oficio."
                 : "We started out managing boutique vacation-rental villas in the Riviera Maya. That work — dealing directly with the owner, caring for the asset, clear accounts every month — is what taught us the trade."}
             </p>
-            <p className="text-[17px] leading-relaxed text-cream-dim lg:text-[19px]">
+            <p className="lead">
               {locale === "es"
                 ? "De ahí evolucionamos a la operación hotelera bajo marcas de franquicia internacional. Hoy operamos con Wyndham e IHG, y seguimos administrando patrimonio privado en la región."
                 : "From there we moved into hotel operations under international franchise brands. Today we operate with Wyndham and IHG, and we still manage private assets across the region."}
@@ -99,10 +99,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               delay={index * 80}
               className="grid gap-3 border-t border-hairline py-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:gap-12"
             >
-              <h3 className="text-[19px] font-medium leading-tight text-cream">
+              <h3 className="text-h3 font-medium leading-tight text-cream">
                 {t(value.title, locale)}
               </h3>
-              <p className="text-[16px] leading-relaxed text-cream-dim">{t(value.body, locale)}</p>
+              <p className="prose-body">{t(value.body, locale)}</p>
             </Reveal>
           ))}
         </div>
@@ -127,7 +127,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 aria-hidden="true"
               />
               <div>
-                <h3 className="text-[18px] font-medium text-cream">{member.name}</h3>
+                <h3 className="text-h3 font-medium text-cream">{member.name}</h3>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-gold">
                   {t(member.role, locale)}
                 </p>

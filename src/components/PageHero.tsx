@@ -41,14 +41,14 @@ export default function PageHero({
       <Container className="relative pb-16 pt-40 lg:pb-24 lg:pt-48">
         <p className="eyebrow animate-fade-up mb-6">{eyebrow}</p>
         <h1
-          className="display animate-fade-up max-w-[22ch] text-[clamp(2.25rem,6vw,5rem)] text-cream"
+          className="display animate-fade-up max-w-[22ch] text-h1 text-cream"
           style={{ animationDelay: "120ms" }}
         >
           {title}
         </h1>
         {intro && (
           <p
-            className="animate-fade-up mt-8 max-w-2xl text-[17px] leading-relaxed text-cream-dim lg:text-[19px]"
+            className="lead animate-fade-up mt-8 max-w-2xl"
             style={{ animationDelay: "220ms" }}
           >
             {intro}

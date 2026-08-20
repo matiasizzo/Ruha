@@ -52,14 +52,14 @@ export default async function WhatWeDoPage({ params }: { params: Promise<{ local
               className="grid gap-6 border-t border-hairline py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-14"
             >
               <div>
-                <h3 className="display text-[clamp(1.5rem,3vw,2.25rem)] text-cream">
+                <h3 className="display text-h2 text-cream">
                   {t(model.title, locale)}
                 </h3>
                 <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-terra">
                   {t(model.example, locale)}
                 </p>
               </div>
-              <p className="text-[17px] leading-relaxed text-cream-dim lg:text-[19px]">
+              <p className="lead">
                 {t(model.body, locale)}
               </p>
             </Reveal>

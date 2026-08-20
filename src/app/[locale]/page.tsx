@@ -17,6 +17,7 @@ import Reveal from "@/components/Reveal";
 import StatsBand from "@/components/StatsBand";
 import ZoomTransition from "@/components/ZoomTransition";
 import { Container, Section, SectionHead } from "@/components/Section";
+import { ButtonLink } from "@/components/ui/button";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -47,7 +48,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {locale === "es" ? "Marcas con las que operamos" : "Brands we operate"}
           </p>
           <BrandStrip locale={locale} />
-          <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-cream-dim">
+          <p className="mt-6 max-w-2xl prose-body text-small">
             {locale === "es"
               ? "El dueño no está casado con nuestro logo, sino con la marca que mejor rinde para su producto. Esa es la diferencia entre una operadora multimarca y una cadena."
               : "The owner isn't tied to our logo, but to the brand that performs best for their product. That is the difference between a multi-brand operator and a chain."}
@@ -110,10 +111,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mt-14 grid gap-px border border-hairline bg-hairline lg:grid-cols-3">
           {operatingModels.map((model, index) => (
             <Reveal key={model.id} delay={index * 100} className="flex flex-col gap-4 bg-cacao p-8 lg:p-10">
-              <h3 className="text-[20px] font-medium leading-tight text-cream">
+              <h3 className="text-h3 font-medium leading-tight text-cream">
                 {t(model.title, locale)}
               </h3>
-              <p className="text-[15px] leading-relaxed text-cream-dim">{t(model.body, locale)}</p>
+              <p className="prose-body text-small">{t(model.body, locale)}</p>
               <p className="mt-auto pt-6 font-mono text-[10px] uppercase tracking-[0.14em] text-terra">
                 {t(model.example, locale)}
               </p>
@@ -132,12 +133,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             />
           </Reveal>
           <Reveal delay={80}>
-            <Link
-              href={href(locale, routes.portfolio)}
-              className="border border-hairline-strong px-6 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cream transition-colors hover:border-gold hover:text-gold"
-            >
+            <ButtonLink href={href(locale, routes.portfolio)} variant="secondary" arrow>
               {ui("viewPortfolio", locale)}
-            </Link>
+            </ButtonLink>
           </Reveal>
         </div>
 
@@ -214,7 +212,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 aria-hidden="true"
               />
               <div>
-                <h3 className="text-[18px] font-medium text-cream">{member.name}</h3>
+                <h3 className="text-h3 font-medium text-cream">{member.name}</h3>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-gold">
                   {t(member.role, locale)}
                 </p>

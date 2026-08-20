@@ -77,7 +77,7 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
         <div className="mt-16 grid gap-px border border-hairline bg-hairline lg:grid-cols-2">
           {brandGroups.map((group, index) => (
             <Reveal key={group.id} delay={index * 100} className="bg-cacao p-8 lg:p-12">
-              <h2 className="display text-[clamp(1.5rem,3vw,2.25rem)] text-cream">{group.name}</h2>
+              <h2 className="display text-h2 text-cream">{group.name}</h2>
               <p className="mt-5 text-[16px] leading-relaxed text-cream-dim">
                 {t(group.blurb, locale)}
               </p>
@@ -112,7 +112,7 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
         <div className="mt-14 grid gap-px border border-hairline bg-hairline sm:grid-cols-2">
           {benefits.map((benefit, index) => (
             <Reveal key={index} delay={index * 90} className="bg-cacao-deep p-8 lg:p-10">
-              <h3 className="text-[19px] font-medium text-cream">{t(benefit.title, locale)}</h3>
+              <h3 className="text-h3 font-medium text-cream">{t(benefit.title, locale)}</h3>
               <p className="mt-4 text-[15px] leading-relaxed text-cream-dim">
                 {t(benefit.body, locale)}
               </p>

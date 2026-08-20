@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Locale } from "@/content/site";
 import { href, routes, ui } from "@/lib/i18n";
 import { Container } from "./Section";
+import { ButtonLink } from "@/components/ui/button";
 
 /**
  * Cierre de página. El brief es claro en que el sitio no vende noches: vende
@@ -24,7 +25,7 @@ export default function CTABand({ locale }: { locale: Locale }) {
             <p className="eyebrow mb-5">
               {locale === "es" ? "Para desarrolladores y dueños" : "For developers and owners"}
             </p>
-            <h2 className="display text-[clamp(2rem,4.8vw,3.75rem)] text-cream">
+            <h2 className="display text-h1 text-cream">
               {locale === "es" ? (
                 <>
                   Tienes un activo.
@@ -47,18 +48,12 @@ export default function CTABand({ locale }: { locale: Locale }) {
           </div>
 
           <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-            <Link
-              href={href(locale, routes.deck)}
-              className="bg-cream px-7 py-4 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-cacao transition-colors hover:bg-gold"
-            >
+            <ButtonLink href={href(locale, routes.deck)} variant="primary" arrow>
               {ui("downloadDeck", locale)}
-            </Link>
-            <Link
-              href={href(locale, routes.contact)}
-              className="border border-hairline-strong px-7 py-4 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-cream transition-colors hover:border-gold hover:text-gold"
-            >
+            </ButtonLink>
+            <ButtonLink href={href(locale, routes.contact)} variant="secondary" arrow>
               {ui("talkToUs", locale)}
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </Container>

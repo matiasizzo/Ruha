@@ -70,7 +70,7 @@ export default function PropertyCard({
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="text-[17px] font-medium leading-tight text-cream">{property.name}</h3>
+        <h3 className="text-h3 font-medium leading-tight text-cream">{property.name}</h3>
         <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-cream-faint">
           {t(property.city, locale)} · {t(property.state, locale)}
           {meta.length > 0 && ` · ${meta.join(" · ")}`}

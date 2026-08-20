@@ -7,6 +7,7 @@ import CTABand from "@/components/CTABand";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Section } from "@/components/Section";
+import { ButtonLink } from "@/components/ui/button";
 
 export async function generateMetadata({
   params,
@@ -65,14 +66,14 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                 {property.brandLabel && (
                   <p className="eyebrow">{property.brandLabel}</p>
                 )}
-                <h2 className="display text-[clamp(1.75rem,3.6vw,2.75rem)] text-cream">
+                <h2 className="display text-h2 text-cream">
                   {property.name}
                 </h2>
                 <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-cream-faint">
                   {t(property.city, locale)} · {t(property.state, locale)}
                   {property.keys ? ` · ${property.keys} ${ui("keys", locale)}` : ""}
                 </p>
-                <p className="max-w-2xl text-[17px] leading-relaxed text-cream-dim">
+                <p className="max-w-2xl lead">
                   {t(property.summary, locale)}
                 </p>
 
@@ -81,7 +82,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                     {property.facts.map((fact, factIndex) => (
                       <div key={factIndex} className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6">
                         <dt className="eyebrow">{t(fact.label, locale)}</dt>
-                        <dd className="text-[15px] leading-relaxed text-cream-dim">
+                        <dd className="prose-body text-small">
                           {t(fact.value, locale)}
                         </dd>
                       </div>
@@ -112,12 +113,9 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
         </div>
 
         <Reveal className="mt-12">
-          <Link
-            href={href(locale, routes.portfolio)}
-            className="inline-block border border-hairline-strong px-6 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cream transition-colors hover:border-gold hover:text-gold"
-          >
-            {ui("backToPortfolio", locale)}
-          </Link>
+          <ButtonLink href={href(locale, routes.portfolio)} variant="secondary" arrow>
+              {ui("backToPortfolio", locale)}
+            </ButtonLink>
         </Reveal>
       </Section>
 

@@ -17,12 +17,64 @@
   --color-gold: #daad4b; /* dorado / mostaza */
   --color-cream: #edebdf; /* crema */
   --color-cream-dim: rgba(237, 235, 223, 0.66);
-  --color-cream-faint: rgba(237, 235, 223, 0.42);
+  /* 0.55 y no 0.42: a 0.42 las etiquetas quedaban en 3.6:1 sobre el café,
+     por debajo del mínimo de 4.5:1. A 0.55 dan 5.2:1 y siguen leyéndose como
+     texto secundario. */
+  --color-cream-faint: rgba(237, 235, 223, 0.55);
   --color-hairline: rgba(237, 235, 223, 0.14);
   --color-hairline-strong: rgba(237, 235, 223, 0.28);
 
+  /*
+    Tres roles tipográficos, no uno.
+
+    Poppins es la tipografía de la identidad de Monarca y sigue siendo la voz
+    de la marca: titulares, cifras y wordmark. Pero es una geométrica de
+    display —ancha, de trazo uniforme— y en párrafos largos se lee plana. De
+    ahí que el texto corrido pase a una serif de texto, que además le da al
+    sitio el registro editorial que una operadora de hotelería de diseño
+    necesita.
+
+    PENDIENTE DE APROBACIÓN: sumar una segunda familia es una decisión de
+    marca. Si Monarca la rechaza, es cambiar --font-serif por --font-sans acá
+    y el sitio vuelve a una sola familia sin tocar nada más.
+  */
   --font-sans: var(--font-poppins), "Century Gothic", "Avenir Next", system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), "Iowan Old Style", Georgia, serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /*
+    Escala tipográfica. Antes cada componente inventaba su propio clamp(), que
+    es exactamente de dónde salía la sensación de tipografía genérica: sin
+    escala no hay jerarquía, sólo tamaños sueltos.
+  */
+  --text-display: clamp(2.75rem, 7.4vw, 6.5rem);
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.035em;
+
+  --text-h1: clamp(2rem, 4.6vw, 3.5rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.028em;
+
+  --text-h2: clamp(1.625rem, 3.2vw, 2.5rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.022em;
+
+  --text-h3: 1.1875rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+
+  --text-lead: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  --text-lead--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.65;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.18em;
 
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -64,17 +116,39 @@
   /* Etiqueta monoespaciada: la voz "operativa" del sitio. */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.18em;
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
     text-transform: uppercase;
     color: var(--color-cream-faint);
   }
 
-  /* Titular de sección. El tamaño fluido evita saltos entre breakpoints. */
+  /*
+    Titular. Peso 500 y no 600: en una geométrica, el semibold a tamaño grande
+    engorda el contorno y le saca el aire que hace que se vea cara.
+  */
   .display {
     font-weight: 500;
-    letter-spacing: -0.03em;
+    letter-spacing: var(--text-display--letter-spacing);
     line-height: 0.98;
+  }
+
+  /*
+    Párrafo de entrada. Es donde entra la serif: los textos que llevan la voz
+    de la casa, no los de interfaz.
+  */
+  .lead {
+    font-family: var(--font-serif);
+    font-size: var(--text-lead);
+    line-height: 1.62;
+    color: var(--color-cream-dim);
+  }
+
+  /* Texto corrido. */
+  .prose-body {
+    font-family: var(--font-serif);
+    font-size: var(--text-body);
+    line-height: 1.72;
+    color: var(--color-cream-dim);
   }
 
   .rule {

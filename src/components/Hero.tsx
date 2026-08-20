@@ -4,6 +4,7 @@ import { brand, heroMedia } from "@/content/site";
 import { href, routes, t, ui } from "@/lib/i18n";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import Isotipo from "./brand/Isotipo";
+import { ButtonLink } from "@/components/ui/button";
 
 /**
  * Portada. Es la tesis del sitio: en una pantalla tienen que quedar los dos
@@ -156,7 +157,7 @@ export default function Hero({ locale }: { locale: Locale }) {
         </p>
 
         <h1
-          className="display animate-fade-up mt-10 max-w-[18ch] text-[clamp(1.75rem,4.4vw,3.5rem)] text-cream"
+          className="display animate-fade-up mt-10 max-w-[18ch] text-h1 text-cream"
           style={{ animationDelay: "380ms" }}
         >
           {locale === "es" ? (
@@ -174,18 +175,12 @@ export default function Hero({ locale }: { locale: Locale }) {
           className="animate-fade-up mt-10 flex flex-col gap-3 sm:flex-row"
           style={{ animationDelay: "500ms" }}
         >
-          <Link
-            href={href(locale, routes.developers)}
-            className="bg-cream px-7 py-4 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-cacao transition-colors duration-200 hover:bg-gold"
-          >
-            {locale === "es" ? "Para desarrolladores" : "For developers"}
-          </Link>
-          <Link
-            href={href(locale, routes.portfolio)}
-            className="border border-hairline-strong px-7 py-4 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-cream transition-colors duration-200 hover:border-gold hover:text-gold"
-          >
-            {ui("viewPortfolio", locale)}
-          </Link>
+          <ButtonLink href={href(locale, routes.developers)} variant="primary" arrow>
+              {locale === "es" ? "Para desarrolladores" : "For developers"}
+            </ButtonLink>
+          <ButtonLink href={href(locale, routes.portfolio)} variant="secondary" arrow>
+              {ui("viewPortfolio", locale)}
+            </ButtonLink>
         </div>
       </div>
     </section>

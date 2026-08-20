@@ -8,6 +8,7 @@ import Counter from "@/components/Counter";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Section, SectionHead } from "@/components/Section";
+import { ButtonLink } from "@/components/ui/button";
 
 export async function generateMetadata({
   params,
@@ -91,10 +92,10 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
               <span className="font-mono text-[12px] tabular text-terra">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-[19px] font-medium leading-tight text-cream">
+              <h3 className="text-h3 font-medium leading-tight text-cream">
                 {t(step.title, locale)}
               </h3>
-              <p className="text-[16px] leading-relaxed text-cream-dim">{t(step.body, locale)}</p>
+              <p className="prose-body">{t(step.body, locale)}</p>
             </Reveal>
           ))}
         </ol>
@@ -128,19 +129,19 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
         {mainCase && (
           <Reveal className="mt-16 border border-hairline bg-cacao-raised/40 p-8 lg:p-12">
             <p className="eyebrow mb-5">{locale === "es" ? "Caso" : "Case"}</p>
-            <h3 className="display max-w-3xl text-[clamp(1.5rem,3vw,2.25rem)] text-cream">
+            <h3 className="display max-w-3xl text-h2 text-cream">
               {t(mainCase.title, locale)}
             </h3>
             <dl className="mt-10 grid gap-8 lg:grid-cols-3">
               <div>
                 <dt className="eyebrow mb-3">{locale === "es" ? "El problema" : "The problem"}</dt>
-                <dd className="text-[15px] leading-relaxed text-cream-dim">
+                <dd className="prose-body text-small">
                   {t(mainCase.problem, locale)}
                 </dd>
               </div>
               <div>
                 <dt className="eyebrow mb-3">{locale === "es" ? "Qué hicimos" : "What we did"}</dt>
-                <dd className="text-[15px] leading-relaxed text-cream-dim">
+                <dd className="prose-body text-small">
                   {t(mainCase.action, locale)}
                 </dd>
               </div>
@@ -175,29 +176,23 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
         <div className="relative mx-auto w-full max-w-[1400px] px-6 py-24 lg:px-12 lg:py-32">
           <div className="max-w-3xl">
             <p className="eyebrow mb-6">{locale === "es" ? "Siguiente paso" : "Next step"}</p>
-            <h2 className="display text-[clamp(2rem,5vw,4rem)] text-cream">
+            <h2 className="display text-h1 text-cream">
               {locale === "es"
                 ? "Llévate el deck corporativo."
                 : "Take the corporate deck with you."}
             </h2>
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-cream-dim">
+            <p className="mt-6 max-w-xl lead">
               {locale === "es"
                 ? "Modelos de operación, portafolio completo, proceso y estructura de honorarios. Te lo mandamos al correo."
                 : "Operating models, full portfolio, process and fee structure. We'll send it to your inbox."}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href={href(locale, routes.deck)}
-                className="bg-cream px-8 py-4 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-cacao transition-colors hover:bg-gold"
-              >
-                {ui("downloadDeck", locale)}
-              </Link>
-              <Link
-                href={href(locale, routes.contact)}
-                className="border border-hairline-strong px-8 py-4 text-center font-mono text-[11px] uppercase tracking-[0.16em] text-cream transition-colors hover:border-gold hover:text-gold"
-              >
-                {ui("talkToUs", locale)}
-              </Link>
+              <ButtonLink href={href(locale, routes.deck)} variant="primary" arrow>
+              {ui("downloadDeck", locale)}
+            </ButtonLink>
+              <ButtonLink href={href(locale, routes.contact)} variant="secondary" arrow>
+              {ui("talkToUs", locale)}
+            </ButtonLink>
             </div>
           </div>
         </div>
