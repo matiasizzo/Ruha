@@ -56,14 +56,19 @@ function FloatingCard({
   label,
   meta,
   size,
+  delay,
 }: {
   src: string;
   label: string;
   meta: string;
   size: string;
+  delay: number;
 }) {
   return (
-    <figure className="group">
+    // La animación de entrada va acá y no en el elemento flotante: animate-fade-up
+    // anima transform y termina en `transform: none` con fill-mode both, así que
+    // su valor final pisaría el transform que escribe el bucle del parallax.
+    <figure className="group animate-fade-up" style={{ animationDelay: `${delay}ms` }}>
       <div className={`overflow-hidden border border-hairline ${size}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -113,19 +118,14 @@ export default function Hero({ locale }: { locale: Locale }) {
           <FloatingElement
             key={piece.label}
             depth={SLOTS[index].depth}
-            className="animate-fade-up"
-            style={{
-              top: SLOTS[index].top,
-              left: SLOTS[index].left,
-              // Entran escalonadas, no todas juntas.
-              animationDelay: `${index * 90}ms`,
-            }}
+            style={{ top: SLOTS[index].top, left: SLOTS[index].left }}
           >
             <FloatingCard
               src={piece.src}
               label={piece.label}
               meta={piece.meta}
               size={SLOTS[index].size}
+              delay={index * 90}
             />
           </FloatingElement>
         ))}

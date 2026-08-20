@@ -15,6 +15,7 @@ import MapMexico from "@/components/MapMexico";
 import PropertyCard from "@/components/PropertyCard";
 import Reveal from "@/components/Reveal";
 import StatsBand from "@/components/StatsBand";
+import ZoomTransition from "@/components/ZoomTransition";
 import { Container, Section, SectionHead } from "@/components/Section";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -31,6 +32,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           de ahí sale el efecto cortina. Necesita fondo propio y opaco, si no
           se transparenta el hero. */}
       <div className="relative z-0 bg-cacao">
+
+      {/* Puente: el logo se acerca hasta pasar de largo y entrega la pantalla
+          a las cifras. */}
+      <ZoomTransition locale={locale} />
 
       {/* Cifras + marcas: los dos mensajes del brief, demostrados y no
           explicados, apenas termina la portada. */}
