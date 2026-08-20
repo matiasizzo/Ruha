@@ -243,6 +243,64 @@ export const privatePortfolioNote: I18nText = {
 };
 
 /* ------------------------------------------------------------------ */
+/* Imágenes flotantes del hero                                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * PROVISIONAL. Fotos de stock de Unsplash, puestas para poder evaluar el
+ * efecto del hero antes de que lleguen las fotos reales.
+ *
+ * Ninguna de estas imágenes es de una propiedad de RÜHA y no deben publicarse
+ * como si lo fueran. Cuando lleguen las fotos: subirlas a /public/media y
+ * cambiar `src` por la ruta local. Es lo único que hay que tocar.
+ *
+ * `label` y `meta` son reales y salen del portafolio: aunque la foto sea de
+ * stock, lo que se lee sí comunica los dos mensajes del brief.
+ */
+export const heroMedia: { src: string; label: string; meta: string }[] = [
+  {
+    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+    label: "Tulum",
+    meta: "Quintana Roo",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop",
+    label: "Ramada by Wyndham",
+    meta: "Wyndham",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=800&auto=format&fit=crop",
+    label: "Playa del Carmen",
+    meta: "Quintana Roo",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=800&auto=format&fit=crop",
+    label: "Vöco",
+    meta: "IHG",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=800&auto=format&fit=crop",
+    label: "Holiday Inn",
+    meta: "IHG",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=800&auto=format&fit=crop",
+    label: "Cancún",
+    meta: "Quintana Roo",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+    label: "Mérida",
+    meta: "Yucatán",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop",
+    label: "Dazzler by Wyndham",
+    meta: "Wyndham",
+  },
+];
+
+/* ------------------------------------------------------------------ */
 /* Destinos para el mapa                                               */
 /* ------------------------------------------------------------------ */
 

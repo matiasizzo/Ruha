@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/content/site";
-import { brand, brands, destinations } from "@/content/site";
+import { brand, heroMedia } from "@/content/site";
 import { href, routes, t, ui } from "@/lib/i18n";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import Isotipo from "./brand/Isotipo";
@@ -10,10 +10,9 @@ import Isotipo from "./brand/Isotipo";
  * mensajes del brief —operadora multimarca y operadora nacional— antes de que
  * el visitante haga scroll.
  *
- * El logo va al centro y alrededor flotan, siguiendo al puntero, las marcas con
- * las que se opera y los destinos donde hay operación. No son adornos: son
- * exactamente los dos mensajes, y salen de site.ts, así que sumar una marca o
- * un destino los agrega también acá.
+ * El logo va al centro y alrededor flotan, siguiendo al puntero, fotos con su
+ * pie. Los pies no son adornos: nombran marcas y destinos reales, que son
+ * exactamente los dos mensajes. Salen de heroMedia en site.ts.
  *
  * Tres cosas deliberadas:
  *  - Las piezas flotantes se ocultan en pantallas chicas. El parallax de
@@ -28,43 +27,62 @@ import Isotipo from "./brand/Isotipo";
  * sustituye esa capa sin tocar el resto de la composición.
  */
 
-/** Posiciones y profundidades de las piezas flotantes, alrededor del centro. */
+/**
+ * Posiciones, profundidades y tamaño de las piezas flotantes.
+ *
+ * Los tamaños se varían a propósito: si todas las piezas miden lo mismo, la
+ * diferencia de profundidad no se lee como profundidad sino como desorden.
+ */
 const SLOTS = [
-  { top: "14%", left: "7%", depth: 0.6 },
-  { top: "9%", left: "31%", depth: 1.4 },
-  { top: "17%", left: "63%", depth: 2.2 },
-  { top: "11%", left: "83%", depth: 0.9 },
-  { top: "47%", left: "4%", depth: 1.8 },
-  { top: "54%", left: "85%", depth: 2.6 },
-  { top: "77%", left: "13%", depth: 3.2 },
-  { top: "81%", left: "64%", depth: 1.1 },
+  { top: "12%", left: "6%", depth: 0.6, size: "h-24 w-24 lg:h-28 lg:w-28" },
+  { top: "7%", left: "28%", depth: 1.4, size: "h-28 w-36 lg:h-32 lg:w-44" },
+  { top: "14%", left: "62%", depth: 2.2, size: "h-36 w-28 lg:h-48 lg:w-36" },
+  { top: "9%", left: "84%", depth: 0.9, size: "h-24 w-24 lg:h-28 lg:w-28" },
+  { top: "44%", left: "3%", depth: 1.8, size: "h-32 w-32 lg:h-40 lg:w-40" },
+  { top: "52%", left: "85%", depth: 2.6, size: "h-36 w-28 lg:h-44 lg:w-32" },
+  { top: "70%", left: "11%", depth: 3.2, size: "h-40 w-52 lg:h-44 lg:w-64" },
+  // Corrida a la derecha: en 63% el marco rozaba el botón del centro.
+  { top: "76%", left: "70%", depth: 1.1, size: "h-28 w-28 lg:h-32 lg:w-32" },
 ];
 
-function FloatingLabel({ label, meta }: { label: string; meta: string }) {
+/**
+ * Pieza flotante: la foto con su pie.
+ *
+ * El pie no es decorativo. Las fotos de hoy son de stock, pero lo que se lee
+ * —marca o destino— es real, así que el hero comunica igual los dos mensajes.
+ */
+function FloatingCard({
+  src,
+  label,
+  meta,
+  size,
+}: {
+  src: string;
+  label: string;
+  meta: string;
+  size: string;
+}) {
   return (
-    <div className="border border-hairline bg-cacao-deep/45 px-4 py-2.5 backdrop-blur-[2px]">
-      <p className="whitespace-nowrap text-[13px] font-medium text-cream/85">{label}</p>
-      <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-cream-faint">
-        {meta}
-      </p>
-    </div>
+    <figure className="group">
+      <div className={`overflow-hidden border border-hairline ${size}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100"
+        />
+      </div>
+      <figcaption className="mt-2">
+        <p className="whitespace-nowrap text-[12px] font-medium text-cream/80">{label}</p>
+        <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-cream-faint">{meta}</p>
+      </figcaption>
+    </figure>
   );
 }
 
 export default function Hero({ locale }: { locale: Locale }) {
-  // Se intercalan marcas y destinos para que ninguno de los dos mensajes
-  // quede agrupado en una esquina.
-  const pieces = [
-    { label: destinations[0].name, meta: locale === "es" ? "Destino" : "Destination" },
-    { label: brands[0].name, meta: brands[0].group },
-    { label: destinations[1].name, meta: locale === "es" ? "Destino" : "Destination" },
-    { label: brands[3].name, meta: brands[3].group },
-    { label: brands[2].name, meta: brands[2].group },
-    { label: destinations[2].name, meta: locale === "es" ? "Destino" : "Destination" },
-    { label: destinations[3].name, meta: locale === "es" ? "Destino" : "Destination" },
-    { label: brands[1].name, meta: brands[1].group },
-  ];
-
   return (
     <section className="sticky top-0 -z-10 h-[100svh] overflow-hidden">
       {/* Atmósfera. TODO: reemplazar por foto o video cuando lleguen. */}
@@ -91,14 +109,24 @@ export default function Hero({ locale }: { locale: Locale }) {
           <Isotipo layer="spiral" className="h-[30vh] w-auto text-terra/[0.10]" />
         </FloatingElement>
 
-        {pieces.map((piece, index) => (
+        {heroMedia.map((piece, index) => (
           <FloatingElement
             key={piece.label}
             depth={SLOTS[index].depth}
             className="animate-fade-up"
-            style={{ top: SLOTS[index].top, left: SLOTS[index].left }}
+            style={{
+              top: SLOTS[index].top,
+              left: SLOTS[index].left,
+              // Entran escalonadas, no todas juntas.
+              animationDelay: `${index * 90}ms`,
+            }}
           >
-            <FloatingLabel label={piece.label} meta={piece.meta} />
+            <FloatingCard
+              src={piece.src}
+              label={piece.label}
+              meta={piece.meta}
+              size={SLOTS[index].size}
+            />
           </FloatingElement>
         ))}
       </Floating>
