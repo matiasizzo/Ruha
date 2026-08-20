@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import Isotipo from "./brand/Isotipo";
+import Parallax from "./Parallax";
 import { Container } from "./Section";
 
 /**
@@ -26,6 +28,16 @@ export default function PageHero({
         }}
         aria-hidden="true"
       />
+
+      {/* La misma gota del home, en versión corta: mantiene el idioma visual
+          entre páginas sin competir con el titular. */}
+      <Parallax
+        speed={-6}
+        className="pointer-events-none absolute right-[-10%] top-[-20%] h-[150%] w-auto text-gold/[0.06]"
+      >
+        <Isotipo layer="outline" className="h-full w-auto" />
+      </Parallax>
+
       <Container className="relative pb-16 pt-40 lg:pb-24 lg:pt-48">
         <p className="eyebrow animate-fade-up mb-6">{eyebrow}</p>
         <h1

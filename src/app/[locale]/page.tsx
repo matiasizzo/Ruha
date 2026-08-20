@@ -27,6 +27,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <Hero locale={locale} />
 
+      {/* Todo lo que sigue sube por encima del hero, que queda fijo detrás:
+          de ahí sale el efecto cortina. Necesita fondo propio y opaco, si no
+          se transparenta el hero. */}
+      <div className="relative z-0 bg-cacao">
+
       {/* Cifras + marcas: los dos mensajes del brief, demostrados y no
           explicados, apenas termina la portada. */}
       <Section className="border-t border-hairline">
@@ -217,7 +222,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </Section>
 
-      <CTABand locale={locale} />
+        <CTABand locale={locale} />
+      </div>
     </>
   );
 }
