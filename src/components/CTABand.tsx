@@ -10,22 +10,14 @@ import { ButtonLink } from "@/components/ui/button";
  */
 export default function CTABand({ locale }: { locale: Locale }) {
   return (
-    <section className="grain relative overflow-hidden border-t border-hairline bg-cacao-raised">
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(90% 120% at 85% 0%, rgba(218,173,75,0.16), transparent 60%), radial-gradient(70% 90% at 0% 100%, rgba(165,79,12,0.22), transparent 65%)",
-        }}
-        aria-hidden="true"
-      />
+    <section className="atmosphere-soft grain relative overflow-hidden border-t border-line">
       <Container className="relative py-20 lg:py-28">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow mb-5">
               {locale === "es" ? "Para desarrolladores y dueños" : "For developers and owners"}
             </p>
-            <h2 className="display text-h1 text-cream">
+            <h2 className="display text-h1 text-ink">
               {locale === "es" ? (
                 <>
                   Tienes un activo.
@@ -40,7 +32,7 @@ export default function CTABand({ locale }: { locale: Locale }) {
                 </>
               )}
             </h2>
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-cream-dim">
+            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-soft">
               {locale === "es"
                 ? "Descarga el deck corporativo con los modelos de operación, el portafolio y el proceso completo, o escríbenos y lo vemos sobre tu proyecto."
                 : "Download the corporate deck with our operating models, portfolio and full process, or write to us and we'll go through it on your project."}

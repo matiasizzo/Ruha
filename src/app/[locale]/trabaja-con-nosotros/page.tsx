@@ -50,13 +50,13 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
               {jobFamilies.map((family, index) => (
                 <li
                   key={index}
-                  className="border-t border-hairline py-5 text-[17px] leading-relaxed text-cream"
+                  className="border-t border-line py-5 text-[17px] leading-relaxed text-ink"
                 >
                   {t(family, locale)}
                 </li>
               ))}
             </ul>
-            <p className="mt-8 max-w-md text-[14px] leading-relaxed text-cream-faint">
+            <p className="mt-8 max-w-md text-[14px] leading-relaxed text-ink-faint">
               {locale === "es"
                 ? "Si tu perfil no está en la lista pero crees que sumas, escríbenos igual: el portafolio crece y las vacantes cambian cada mes."
                 : "If your profile isn't on the list but you think you'd add something, write anyway: the portfolio is growing and openings change every month."}

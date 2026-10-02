@@ -41,13 +41,13 @@ export default async function PortfolioPage({ params }: { params: Promise<{ loca
       <Section>
         <PortfolioGrid properties={properties} locale={locale} />
 
-        <Reveal className="mt-14 border-t border-hairline pt-10">
-          <p className="max-w-2xl text-[16px] leading-relaxed text-cream-dim">
+        <Reveal className="mt-14 border-t border-line pt-10">
+          <p className="max-w-2xl text-[16px] leading-relaxed text-ink-soft">
             {t(privatePortfolioNote, locale)}
           </p>
           <Link
             href={href(locale, routes.openings)}
-            className="mt-8 inline-block border border-hairline-strong px-6 py-3 text-[13px] tracking-normal text-cream transition-colors hover:border-gold hover:text-gold"
+            className="mt-8 inline-flex min-h-12 items-center rounded-full border border-line-strong px-7 py-3 text-[15px] font-medium text-ink transition-colors hover:border-terra hover:text-terra"
           >
             {ui("openings", locale)}
           </Link>

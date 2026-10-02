@@ -13,11 +13,11 @@ export default function StatsBand({ locale }: { locale: Locale }) {
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       {stats.map((stat, index) => (
         <Reveal key={index} delay={index * 90} className="panel px-6 py-10 lg:px-8 lg:py-12">
-          <p className="display text-[clamp(2.75rem,6vw,4.5rem)] text-cream">
+          <p className="display text-[clamp(2.75rem,6vw,4.5rem)] text-ink">
             <Counter value={stat.value} />
             {stat.suffix}
           </p>
-          <p className="mt-3 max-w-[18ch] text-[13px] leading-snug text-cream-dim">
+          <p className="mt-3 max-w-[18ch] text-[13px] leading-snug text-ink-soft">
             {t(stat.label, locale)}
           </p>
         </Reveal>

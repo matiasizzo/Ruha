@@ -55,8 +55,12 @@ y enlaces que sobreviven al cambio de idioma.
 
 ## Decisiones de diseño
 
-- **Un solo mundo visual, en café oscuro.** No hay tema claro conmutable: es una
-  decisión de dirección de arte, no un olvido.
+- **Base clara, café como color de texto.** El sitio empezó en café oscuro y la
+  devolución del cliente fue que se leía difícil y se veía anticuado. Ahora la
+  base es beige y crema; terracota y dorado quedan como acentos. Todos los
+  pares de texto sobre fondo están medidos por encima de 4.5:1.
+- **Dos familias.** Fraunces para titulares, Poppins (la de la identidad) para
+  texto e interfaz. Sumar Fraunces está pendiente de aprobación de Monarca.
 - **El sitio no depende de fotografía.** Casa Selva abre en octubre de 2026 y
   Dazzler en marzo de 2027, así que buena parte del material va a ser render.
   Los fondos son atmósferas construidas en CSS, pensadas para que sustituirlas
@@ -80,7 +84,9 @@ Contenido que depende del cliente (marcado con `TODO` en el código):
 - [ ] Fotos: retratos de los tres socios, propiedades en operación, renders
 - [ ] PNG de Wyndham, Ramada, Dazzler, Holiday Inn y Vöco
 - [ ] Trayectoria de los socios y resultado publicable del caso Casa Selva
-- [ ] Enlace real del Portal de Propietarios y correo de contacto
+- [ ] Enlace real del Portal de Propietarios (oculto del sitio hasta que esté armado)
+- [ ] Año de fundación (`brand.founded`) y año de la primera operación con marca
+- [ ] Validar el relato de la página Nosotros (`story` en `site.ts`): es un borrador
 - [ ] Dominio definitivo (`brand.siteUrl`)
 
 Técnico:

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { brand, purpose, team, values } from "@/content/site";
+import { brand, history, purpose, story, team, values } from "@/content/site";
 import { isLocale, t } from "@/lib/i18n";
 import CTABand from "@/components/CTABand";
 import PageHero from "@/components/PageHero";
@@ -23,7 +23,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       <PageHero
-        eyebrow={locale === "es" ? "Quiénes somos" : "About"}
+        eyebrow={
+          brand.founded
+            ? locale === "es"
+              ? `Quiénes somos · Desde ${brand.founded}`
+              : `About · Since ${brand.founded}`
+            : locale === "es"
+              ? "Quiénes somos"
+              : "About"
+        }
         title={
           locale === "es"
             ? "Empezamos administrando villas. Hoy abrimos hoteles de marca."
@@ -36,33 +44,49 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         }
       />
 
+      {/* Historia. La devolución pidió el año de fundación y un relato en lugar
+          de un párrafo institucional. */}
       <Section>
         <div className="grid gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
           <Reveal>
             <SectionHead
-              eyebrow={locale === "es" ? "Origen" : "Origin"}
+              eyebrow={locale === "es" ? "Nuestra historia" : "Our story"}
               title={locale === "es" ? "De la villa al hotel" : "From villa to hotel"}
             />
           </Reveal>
           <Reveal delay={100} className="flex flex-col gap-6">
-            <p className="lead">
-              {locale === "es"
-                ? "Nacimos administrando villas boutique de renta vacacional en la Riviera Maya. Ese trabajo —trato directo con el propietario, cuidado del activo, cuentas claras cada mes— es el que nos enseñó el oficio."
-                : "We started out managing boutique vacation-rental villas in the Riviera Maya. That work — dealing directly with the owner, caring for the asset, clear accounts every month — is what taught us the trade."}
-            </p>
-            <p className="lead">
-              {locale === "es"
-                ? "De ahí evolucionamos a la operación hotelera bajo marcas de franquicia internacional. Hoy operamos con Wyndham e IHG, y seguimos administrando patrimonio privado en la región."
-                : "From there we moved into hotel operations under international franchise brands. Today we operate with Wyndham and IHG, and we still manage private assets across the region."}
-            </p>
+            {story.map((paragraph, index) => (
+              <p
+                key={index}
+                className={index === 0 ? "lead text-ink" : "lead"}
+              >
+                {t(paragraph, locale)}
+              </p>
+            ))}
           </Reveal>
         </div>
+
+        {/* Hitos. Un año sin confirmar se muestra como pendiente, no se inventa. */}
+        <ol className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {history.map((milestone, index) => (
+            <Reveal key={index} delay={index * 90} as="li" className="panel flex flex-col gap-3 p-7">
+              {milestone.year ? (
+                <span className="display text-h2 text-terra">{milestone.year}</span>
+              ) : (
+                <span className="display text-h2 text-ink-faint" title={locale === "es" ? "Año por confirmar" : "Year to be confirmed"}>
+                  ····
+                </span>
+              )}
+              <p className="text-[15px] leading-snug text-ink">{t(milestone.label, locale)}</p>
+            </Reveal>
+          ))}
+        </ol>
       </Section>
 
       {/* La misión y la visión existen porque los franquiciantes y los
           desarrolladores las piden. En el sitio van en tres frases; la versión
           larga vive en el deck. */}
-      <Section className="border-t border-hairline bg-cacao-deep">
+      <Section className="border-t border-line bg-page-alt">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Postura" : "Where we stand"}
@@ -73,7 +97,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           {purpose.map((item, index) => (
             <Reveal key={index} delay={index * 100} className="panel p-8 lg:p-10">
               <p className="eyebrow mb-5">{t(item.label, locale)}</p>
-              <p className="text-[17px] leading-relaxed text-cream lg:text-[19px]">
+              <p className="text-[17px] leading-relaxed text-ink lg:text-[19px]">
                 {t(item.body, locale)}
               </p>
             </Reveal>
@@ -81,7 +105,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </Section>
 
-      <Section className="border-t border-hairline">
+      <Section className="border-t border-line">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Valores" : "Values"}
@@ -97,9 +121,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <Reveal
               key={index}
               delay={index * 80}
-              className="grid gap-3 border-t border-hairline py-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:gap-12"
+              className="grid gap-3 border-t border-line py-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:gap-12"
             >
-              <h3 className="text-h3 font-medium leading-tight text-cream">
+              <h3 className="text-h3 font-medium leading-tight text-ink">
                 {t(value.title, locale)}
               </h3>
               <p className="prose-body">{t(value.body, locale)}</p>
@@ -108,11 +132,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </Section>
 
-      <Section className="border-t border-hairline bg-cacao-deep">
+      <Section className="border-t border-line bg-page-alt">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Socios fundadores" : "Founding partners"}
-            title={locale === "es" ? "Quién responde" : "Who answers"}
+            title={locale === "es" ? "Nuestros líderes" : "Our leaders"}
+            intro={
+              locale === "es"
+                ? `Están en las propiedades, no sólo en la junta. Para cualquier consulta, el primer contacto es nuestro equipo de operación: ${brand.email}.`
+                : `They are at the properties, not only in the boardroom. For any enquiry, our operations team is the first point of contact: ${brand.email}.`
+            }
           />
         </Reveal>
         <div className="mt-14 grid gap-8 md:grid-cols-3">
@@ -120,18 +149,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <Reveal key={member.name} delay={index * 100} className="flex flex-col gap-4">
               {/* TODO: retratos de los tres socios. */}
               <div
-                className="grain aspect-[4/5] w-full"
-                style={{
-                  background: "linear-gradient(160deg,rgba(136,91,61,0.42) 0%,rgba(39,20,6,1) 78%)",
-                }}
+                className="photo-placeholder grain aspect-[4/5] w-full rounded-3xl"
                 aria-hidden="true"
               />
               <div>
-                <h3 className="text-h3 font-medium text-cream">{member.name}</h3>
-                <p className="mt-1 text-[13px] tracking-normal text-gold">
+                <h3 className="text-h3 font-medium text-ink">{member.name}</h3>
+                <p className="mt-1 text-[13px] tracking-normal text-gold-ink">
                   {t(member.role, locale)}
                 </p>
-                <p className="mt-3 text-[14px] leading-relaxed text-cream-dim">
+                <p className="mt-3 text-[14px] leading-relaxed text-ink-soft">
                   {t(member.bio, locale)}
                 </p>
               </div>

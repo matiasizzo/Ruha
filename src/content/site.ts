@@ -29,9 +29,17 @@ export const brand = {
   // TODO: definir dominio definitivo antes de publicar. No tocar los MX del
   // dominio donde vive el correo corporativo.
   siteUrl: "https://example.com",
-  // TODO: enlace real del portal (Comunidad Feliz).
+  // Fuera del sitio por ahora: la devolución pidió no mostrar el portal hasta
+  // que esté armado. TODO: enlace real (Comunidad Feliz) cuando vuelva.
   ownersPortalUrl: "https://comunidadfeliz.com",
-  email: "TODO@example.com",
+  // Genérico a propósito: ningún correo personal aparece en el sitio.
+  email: "contact@ruhatulum.com",
+  /**
+   * TODO: año de fundación. La devolución lo pide —"a la gente le gusta conocer
+   * la historia"— y no figura en el brief. Mientras sea null, el sitio muestra
+   * el hueco marcado como pendiente en lugar de inventar una fecha.
+   */
+  founded: null as number | null,
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -138,6 +146,8 @@ export type Property = {
 export const properties: Property[] = [
   {
     slug: "casa-selva",
+    // PROVISIONAL: foto de stock, no es de esta propiedad. Reemplazar.
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop",
     name: "Ramada Residences by Wyndham Tulum",
     brandId: "ramada",
     brandLabel: "Ramada by Wyndham",
@@ -158,6 +168,8 @@ export const properties: Property[] = [
   },
   {
     slug: "holiday-inn-tulum",
+    // PROVISIONAL: foto de stock, no es de esta propiedad. Reemplazar.
+    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1200&auto=format&fit=crop",
     name: "Holiday Inn Tulum",
     brandId: "holiday-inn",
     brandLabel: "Holiday Inn · IHG",
@@ -172,6 +184,8 @@ export const properties: Property[] = [
   },
   {
     slug: "macondo-5ta-avenida",
+    // PROVISIONAL: foto de stock, no es de esta propiedad. Reemplazar.
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1200&auto=format&fit=crop",
     name: "Macondo 5ta Avenida",
     brandLabel: undefined,
     city: { es: "Playa del Carmen", en: "Playa del Carmen" },
@@ -185,6 +199,8 @@ export const properties: Property[] = [
   },
   {
     slug: "ixuh-beach-living",
+    // PROVISIONAL: foto de stock, no es de esta propiedad. Reemplazar.
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1200&auto=format&fit=crop",
     name: "IXUH Beach Living",
     city: { es: "Playa del Carmen", en: "Playa del Carmen" },
     state: { es: "Quintana Roo", en: "Quintana Roo" },
@@ -198,6 +214,8 @@ export const properties: Property[] = [
   },
   {
     slug: "dazzler-playa-del-carmen",
+    // PROVISIONAL: foto de stock, no es de esta propiedad. Reemplazar.
+    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1200&auto=format&fit=crop",
     name: "Dazzler by Wyndham Playa del Carmen",
     brandId: "dazzler",
     brandLabel: "Dazzler by Wyndham",
@@ -218,6 +236,8 @@ export const properties: Property[] = [
   },
   {
     slug: "voco-distrito-arte-merida",
+    // PROVISIONAL: foto de stock, no es de esta propiedad. Reemplazar.
+    image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1200&auto=format&fit=crop",
     name: "Vöco Distrito Arte Mérida",
     brandId: "voco",
     brandLabel: "Vöco · IHG",
@@ -425,6 +445,57 @@ export const services = [
   { es: "Home care y cuidado del activo", en: "Home care and asset upkeep" },
   { es: "Contratación y formación de equipos", en: "Hiring and team training" },
 ] satisfies I18nText[];
+
+/* ------------------------------------------------------------------ */
+/* Historia                                                            */
+/* ------------------------------------------------------------------ */
+
+/**
+ * BORRADOR PARA VALIDAR CON EL CLIENTE. La devolución pidió una historia, no un
+ * párrafo institucional. Está escrita sólo con hechos del brief —el origen en
+ * villas boutique, los tres socios, el paso a franquicia— pero el tono y el
+ * hilo narrativo son míos: RÜHA tiene que confirmarlo y, sobre todo, sumar la
+ * anécdota real que sólo ellos tienen.
+ */
+export const story = [
+  {
+    es: "RÜHA empezó como empiezan muchas cosas en la Riviera Maya: con un propietario que necesitaba a alguien de confianza para su casa. Manu, Lalo y Juanjo administraban villas boutique de renta vacacional —las comercializaban, las cuidaban y le rendían cuentas al dueño cada mes.",
+    en: "RÜHA began the way many things begin in the Riviera Maya: with an owner who needed someone they could trust with their home. Manu, Lalo and Juanjo managed boutique vacation-rental villas — marketing them, looking after them and reporting to the owner every month.",
+  },
+  {
+    es: "Ese oficio les dejó la idea que sigue en el centro de la casa: el activo es de alguien, y ese alguien merece saber exactamente qué pasa con él.",
+    en: "That work left them with the idea that is still at the heart of the company: every asset belongs to someone, and that someone deserves to know exactly what is happening with it.",
+  },
+  {
+    es: "Con los años llegaron proyectos más grandes —condominios enteros, hoteles en obra— y operarlos bien exigía un estándar que ninguna administradora local tenía. Lo fueron a buscar a las marcas internacionales. Hoy operan bajo Wyndham e IHG, abren hoteles de doscientas llaves y siguen cuidando villas.",
+    en: "Over the years larger projects arrived — entire condominiums, hotels under construction — and running them well demanded a standard no local manager had. They went looking for it in international brands. Today they operate under Wyndham and IHG, open two-hundred-key hotels and still look after villas.",
+  },
+] satisfies I18nText[];
+
+/**
+ * Hitos. Los de 2026 y 2027 salen del brief. TODO: los dos primeros años no
+ * están en el brief; mientras sean null el sitio los muestra como pendientes en
+ * lugar de inventar una fecha.
+ */
+export const history: { year: number | null; label: I18nText }[] = [
+  {
+    // El año de fundación se carga una sola vez, en brand.founded.
+    year: brand.founded,
+    label: { es: "Primeras villas administradas en la Riviera Maya", en: "First villas under management in the Riviera Maya" },
+  },
+  {
+    year: null,
+    label: { es: "Primera operación bajo marca internacional", en: "First operation under an international brand" },
+  },
+  {
+    year: 2026,
+    label: { es: "Apertura de Ramada Residences by Wyndham Tulum", en: "Ramada Residences by Wyndham Tulum opens" },
+  },
+  {
+    year: 2027,
+    label: { es: "Dazzler by Wyndham Playa del Carmen y Vöco Distrito Arte Mérida", en: "Dazzler by Wyndham Playa del Carmen and Vöco Distrito Arte Mérida" },
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /* Equipo                                                              */

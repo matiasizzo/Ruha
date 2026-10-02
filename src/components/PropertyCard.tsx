@@ -36,13 +36,7 @@ export default function PropertyCard({
           />
         ) : (
           <div
-            className="grain h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
-            style={{
-              background:
-                index % 2 === 0
-                  ? "linear-gradient(155deg,#3B2312 0%,#271406 55%,#180B02 100%)"
-                  : "linear-gradient(155deg,#4A2A12 0%,#2E1708 60%,#180B02 100%)",
-            }}
+            className="photo-placeholder grain h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
             aria-hidden="true"
           />
         )}
@@ -50,7 +44,7 @@ export default function PropertyCard({
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
           <span
             className={`text-[13px] tracking-normal ${
-              isOperating ? "text-gold" : "text-cream-dim"
+              isOperating ? "text-gold-ink" : "text-ink-soft"
             }`}
           >
             {isOperating ? ui("operating", locale) : ui("opening", locale)}
@@ -61,8 +55,8 @@ export default function PropertyCard({
             TODO: sustituir por el PNG del franquiciante cuando esté aprobado;
             hasta entonces va el nombre en texto, que no requiere permiso. */}
         {property.brandLabel && (
-          <div className="absolute inset-x-0 bottom-0 border-t border-hairline bg-cacao-deep/72 px-4 py-2.5 backdrop-blur-sm">
-            <span className="text-[13px] tracking-normal text-cream-dim">
+          <div className="absolute inset-x-0 bottom-0 border-t border-line bg-page/85 px-4 py-2.5 backdrop-blur-sm">
+            <span className="text-[13px] tracking-normal text-ink-soft">
               {property.brandLabel}
             </span>
           </div>
@@ -70,12 +64,12 @@ export default function PropertyCard({
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="text-h3 font-medium leading-tight text-cream">{property.name}</h3>
-        <p className="text-[13px] tracking-normal text-cream-faint">
+        <h3 className="text-h3 font-medium leading-tight text-ink">{property.name}</h3>
+        <p className="text-[13px] tracking-normal text-ink-faint">
           {t(property.city, locale)} · {t(property.state, locale)}
           {meta.length > 0 && ` · ${meta.join(" · ")}`}
         </p>
-        <p className="mt-1 text-[14px] leading-relaxed text-cream-dim">
+        <p className="mt-1 text-[14px] leading-relaxed text-ink-soft">
           {t(property.summary, locale)}
         </p>
         {property.opening && (
@@ -84,7 +78,7 @@ export default function PropertyCard({
           </p>
         )}
         {property.href && (
-          <span className="mt-auto pt-4 text-[13px] tracking-normal text-cream-faint transition-colors group-hover:text-gold">
+          <span className="mt-auto pt-4 text-[13px] tracking-normal text-ink-faint transition-colors group-hover:text-terra">
             {ui("visitSite", locale)} ↗
           </span>
         )}
@@ -93,7 +87,7 @@ export default function PropertyCard({
   );
 
   const className =
-    "group flex flex-col overflow-hidden rounded-3xl border border-hairline bg-cacao-raised/40 transition-colors duration-500 hover:border-hairline-strong";
+    "group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-colors duration-500 hover:border-line-strong";
 
   if (!property.href) {
     return <article className={className}>{inner}</article>;

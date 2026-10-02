@@ -63,15 +63,15 @@ export default function MapMexico({ locale }: { locale: Locale }) {
       >
         <polygon
           points={toPath(MAINLAND)}
-          fill="rgba(136,91,61,0.16)"
-          stroke="rgba(237,235,223,0.34)"
+          fill="rgba(218,173,75,0.22)"
+          stroke="rgba(39,20,6,0.32)"
           strokeWidth="1.5"
           strokeLinejoin="round"
         />
         <polygon
           points={toPath(BAJA)}
-          fill="rgba(136,91,61,0.16)"
-          stroke="rgba(237,235,223,0.34)"
+          fill="rgba(218,173,75,0.22)"
+          stroke="rgba(39,20,6,0.32)"
           strokeWidth="1.5"
           strokeLinejoin="round"
         />
@@ -100,14 +100,14 @@ export default function MapMexico({ locale }: { locale: Locale }) {
               <polyline
                 points={`${x},${y} ${elbowX},${y} ${elbowX},${labelY}`}
                 fill="none"
-                stroke="rgba(237,235,223,0.34)"
+                stroke="rgba(39,20,6,0.32)"
                 strokeWidth="1"
               />
               <text
                 x={textX}
                 y={labelY + 7}
                 textAnchor={toLeft ? "end" : "start"}
-                fill="#EDEBDF"
+                fill="#271406"
                 fontSize="21"
                 fontFamily="var(--font-sans)"
               >

@@ -11,7 +11,7 @@ import { brand } from "@/content/site";
 export default function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`font-medium tracking-[0.3em] text-cream ${className}`}
+      className={`font-medium tracking-[0.3em] text-ink ${className}`}
       aria-label={brand.name}
     >
       {brand.name}

@@ -46,18 +46,12 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
             <Reveal
               key={property.slug}
               delay={index * 90}
-              className="grid gap-8 border-t border-hairline py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-16"
+              className="grid gap-8 border-t border-line py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-16"
             >
               <div>
                 {/* TODO: render o foto de obra cuando el cliente los pase. */}
                 <div
-                  className="grain aspect-[4/3] w-full"
-                  style={{
-                    background:
-                      index % 2 === 0
-                        ? "linear-gradient(155deg,#4A2A12 0%,#2E1708 60%,#180B02 100%)"
-                        : "linear-gradient(155deg,#3B2312 0%,#271406 55%,#180B02 100%)",
-                  }}
+                  className="photo-placeholder grain aspect-[4/3] w-full rounded-3xl"
                   aria-hidden="true"
                 />
               </div>
@@ -66,10 +60,10 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                 {property.brandLabel && (
                   <p className="eyebrow">{property.brandLabel}</p>
                 )}
-                <h2 className="display text-h2 text-cream">
+                <h2 className="display text-h2 text-ink">
                   {property.name}
                 </h2>
-                <p className="text-[13px] tracking-normal text-cream-faint">
+                <p className="text-[13px] tracking-normal text-ink-faint">
                   {t(property.city, locale)} · {t(property.state, locale)}
                   {property.keys ? ` · ${property.keys} ${ui("keys", locale)}` : ""}
                 </p>
@@ -78,7 +72,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                 </p>
 
                 {property.facts && (
-                  <dl className="mt-2 flex flex-col gap-4 border-t border-hairline pt-6">
+                  <dl className="mt-2 flex flex-col gap-4 border-t border-line pt-6">
                     {property.facts.map((fact, factIndex) => (
                       <div key={factIndex} className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6">
                         <dt className="eyebrow">{t(fact.label, locale)}</dt>
@@ -92,7 +86,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
 
                 <div className="mt-4 flex flex-wrap items-center gap-4">
                   {property.opening && (
-                    <span className="border border-terra px-4 py-2 text-[13px] tracking-normal text-terra">
+                    <span className="rounded-full bg-terra/10 px-4 py-2 text-[13px] font-medium text-terra">
                       {t(property.opening, locale)}
                     </span>
                   )}
@@ -101,7 +95,7 @@ export default async function OpeningsPage({ params }: { params: Promise<{ local
                       href={property.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[13px] tracking-normal text-cream-dim underline underline-offset-4 transition-colors hover:text-gold"
+                      className="text-[13px] tracking-normal text-ink-soft underline underline-offset-4 transition-colors hover:text-terra"
                     >
                       {ui("visitSite", locale)} ↗
                     </a>

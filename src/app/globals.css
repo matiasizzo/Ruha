@@ -1,28 +1,41 @@
 @import "tailwindcss";
 
 /*
-  Identidad RÜHA (agencia Monarca). Los cinco colores son los de marca; el
-  resto son derivados para superficies y estados, no colores nuevos.
+  Identidad RÜHA (agencia Monarca). Los cinco colores de marca se mantienen;
+  lo que cambia es cuál manda.
 
-  El sitio vive en un solo mundo visual —café oscuro— por decisión de
-  dirección de arte, así que no hay tema claro/oscuro conmutable: cada color
-  se declara explícitamente.
+  El sitio era café oscuro de punta a punta, y la devolución fue clara: se lee
+  difícil y se ve como un sitio de principios de los 2000. Ahora la base es
+  clara —beige y crema— y el café pasa a ser el color del texto, que es donde
+  rinde. Terracota y dorado quedan como acentos.
+
+  Todos los pares de texto sobre fondo están medidos: el más bajo, terracota
+  sobre arena, da 4.54:1, por encima del mínimo de 4.5:1.
 */
 @theme {
-  --color-cacao: #271406; /* café oscuro, fondo principal */
-  --color-cacao-deep: #180B02; /* derivado, para capas y pie */
-  --color-cacao-raised: #33200F; /* derivado, superficies elevadas */
+  /* Marca */
+  --color-cacao: #271406; /* café oscuro: ahora el color del texto */
   --color-cafe: #885b3d; /* café medio */
-  --color-terra: #a54f0c; /* terracota */
-  --color-gold: #daad4b; /* dorado / mostaza */
+  --color-terra: #a54f0c; /* terracota: acento principal y botón */
+  --color-gold: #daad4b; /* dorado: sólo rellenos, nunca texto sobre claro */
   --color-cream: #edebdf; /* crema */
-  --color-cream-dim: rgba(237, 235, 223, 0.66);
-  /* 0.55 y no 0.42: a 0.42 las etiquetas quedaban en 3.6:1 sobre el café,
-     por debajo del mínimo de 4.5:1. A 0.55 dan 5.2:1 y siguen leyéndose como
-     texto secundario. */
-  --color-cream-faint: rgba(237, 235, 223, 0.55);
-  --color-hairline: rgba(237, 235, 223, 0.14);
-  --color-hairline-strong: rgba(237, 235, 223, 0.28);
+
+  /* Superficies */
+  --color-page: #f7f3ea; /* fondo general, beige claro */
+  --color-page-alt: #ede6d6; /* secciones alternas, arena */
+  --color-surface: #fffcf6; /* tarjetas */
+
+  /* Texto: 15.9:1, 8.2:1 y 5.4:1 sobre el fondo general */
+  --color-ink: #271406;
+  --color-ink-soft: #5b4433;
+  --color-ink-faint: #75604e;
+
+  /* Dorado oscurecido para cuando el dorado tiene que ser texto: 5.6:1 */
+  --color-gold-ink: #7a5c12;
+
+  /* Filetes */
+  --color-line: rgba(39, 20, 6, 0.12);
+  --color-line-strong: rgba(39, 20, 6, 0.24);
 
   /*
     Dos familias, ninguna monoespaciada.
@@ -94,8 +107,8 @@
   }
 
   body {
-    background-color: var(--color-cacao);
-    color: var(--color-cream);
+    background-color: var(--color-page);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -103,13 +116,12 @@
 
   ::selection {
     background: var(--color-gold);
-    color: var(--color-cacao);
+    color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-terra);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 
   h1,
@@ -139,7 +151,7 @@
     font-weight: 400;
     letter-spacing: 0;
     text-transform: none;
-    color: var(--color-gold);
+    color: var(--color-gold-ink);
   }
 
   /* Titular. La serif de display es la que pone la calidez. */
@@ -154,14 +166,14 @@
   .lead {
     font-size: var(--text-lead);
     line-height: 1.65;
-    color: var(--color-cream-dim);
+    color: var(--color-ink-soft);
   }
 
   /* Texto corrido. */
   .prose-body {
     font-size: var(--text-body);
     line-height: 1.72;
-    color: var(--color-cream-dim);
+    color: var(--color-ink-soft);
   }
 
   /*
@@ -169,24 +181,61 @@
     la otra mitad de la sensación industrial.
   */
   .panel {
-    background: color-mix(in srgb, var(--color-cacao-raised) 55%, transparent);
-    border: 1px solid var(--color-hairline);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
     border-radius: var(--radius-lg);
+    box-shadow: 0 1px 2px rgba(39, 20, 6, 0.04), 0 18px 40px -28px rgba(39, 20, 6, 0.22);
   }
 
   .rule {
     height: 1px;
-    background: var(--color-hairline);
+    background: var(--color-line);
   }
 
-  /* Textura sutil sobre los fondos planos, para que el café no se vea digital. */
+  /*
+    Atmósferas. Antes cada componente escribía su propio degradado oscuro a
+    mano; ahora son tres clases y cambiar el tono del sitio es tocarlas acá.
+  */
+
+  /* Portada: luz de mañana, dorada arriba, terracota apenas abajo. */
+  .atmosphere {
+    background:
+      radial-gradient(110% 80% at 82% 0%, rgba(218, 173, 75, 0.28), transparent 60%),
+      radial-gradient(90% 70% at 0% 100%, rgba(165, 79, 12, 0.12), transparent 62%),
+      linear-gradient(180deg, var(--color-page) 0%, #efe6d3 100%);
+  }
+
+  /* Portada de página interior: la misma luz, más tenue. */
+  .atmosphere-soft {
+    background:
+      radial-gradient(100% 90% at 90% 0%, rgba(218, 173, 75, 0.2), transparent 60%),
+      radial-gradient(80% 80% at 0% 100%, rgba(165, 79, 12, 0.08), transparent 65%),
+      var(--color-page-alt);
+  }
+
+  /* Bloque de cierre: el único lugar donde el color de marca ocupa todo. */
+  .atmosphere-accent {
+    background:
+      radial-gradient(90% 120% at 88% 0%, rgba(218, 173, 75, 0.35), transparent 60%),
+      radial-gradient(70% 90% at 0% 100%, rgba(39, 20, 6, 0.25), transparent 65%),
+      var(--color-terra);
+  }
+
+  /* Hueco de foto mientras no llegan las imágenes reales. */
+  .photo-placeholder {
+    background:
+      radial-gradient(80% 70% at 70% 20%, rgba(218, 173, 75, 0.35), transparent 65%),
+      linear-gradient(160deg, #e3d6bd 0%, #cbb592 100%);
+  }
+
+  /* Textura sutil sobre los fondos planos, para que no se vean digitales. */
   .grain::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.5;
-    mix-blend-mode: overlay;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
   }
 }

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Locale } from "@/content/site";
-import { brand } from "@/content/site";
 import { dict, href, locales, routes, t, ui } from "@/lib/i18n";
 import Wordmark from "./Wordmark";
 
@@ -37,7 +36,7 @@ export default function Header({ locale }: { locale: Locale }) {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-        scrolled || open ? "bg-cacao-deep/92 backdrop-blur-md" : "bg-transparent"
+        scrolled || open ? "bg-page/90 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center gap-6 px-6 py-5 lg:px-12">
@@ -51,8 +50,8 @@ export default function Header({ locale }: { locale: Locale }) {
             <Link
               key={item.route}
               href={href(locale, item.route)}
-              className={`text-[13px] transition-colors hover:text-cream ${
-                isActive(item.route) ? "text-gold" : "text-cream-dim"
+              className={`text-[13px] transition-colors hover:text-ink ${
+                isActive(item.route) ? "text-gold-ink" : "text-ink-soft"
               }`}
             >
               {t(item.label, locale)}
@@ -67,7 +66,7 @@ export default function Header({ locale }: { locale: Locale }) {
                 key={code}
                 href={swapLocale(code)}
                 className={`text-[13px] tracking-normal transition-colors ${
-                  code === locale ? "text-cream" : "text-cream-faint hover:text-cream-dim"
+                  code === locale ? "text-ink" : "text-ink-faint hover:text-ink-soft"
                 }`}
                 hrefLang={code}
               >
@@ -76,18 +75,9 @@ export default function Header({ locale }: { locale: Locale }) {
             ))}
           </div>
 
-          <a
-            href={brand.ownersPortalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full border border-hairline-strong px-5 py-2.5 text-[13px] text-cream-dim transition-colors hover:border-gold hover:text-gold xl:block"
-          >
-            {ui("ownersPortal", locale)}
-          </a>
-
           <Link
             href={href(locale, routes.deck)}
-            className="hidden rounded-full bg-terra px-6 py-2.5 text-[13px] font-medium text-cream transition-colors hover:bg-gold hover:text-cacao md:block"
+            className="hidden rounded-full bg-terra px-6 py-2.5 text-[13px] font-medium text-page transition-colors hover:bg-ink hover:text-page md:block"
           >
             {ui("downloadDeck", locale)}
           </Link>
@@ -100,12 +90,12 @@ export default function Header({ locale }: { locale: Locale }) {
             className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] lg:hidden"
           >
             <span
-              className={`block h-px w-5 bg-cream transition-transform duration-300 ${
+              className={`block h-px w-5 bg-ink transition-transform duration-300 ${
                 open ? "translate-y-[3px] rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-px w-5 bg-cream transition-transform duration-300 ${
+              className={`block h-px w-5 bg-ink transition-transform duration-300 ${
                 open ? "-translate-y-[3px] -rotate-45" : ""
               }`}
             />
@@ -115,7 +105,7 @@ export default function Header({ locale }: { locale: Locale }) {
 
       {/* Menú móvil */}
       <div
-        className={`overflow-hidden border-t border-hairline transition-[max-height] duration-500 lg:hidden ${
+        className={`overflow-hidden border-t border-line transition-[max-height] duration-500 lg:hidden ${
           open ? "max-h-[80vh]" : "max-h-0 border-t-0"
         }`}
       >
@@ -124,32 +114,24 @@ export default function Header({ locale }: { locale: Locale }) {
             <Link
               key={item.route}
               href={href(locale, item.route)}
-              className="border-b border-hairline py-3 text-[15px] text-cream-dim"
+              className="border-b border-line py-3 text-[15px] text-ink-soft"
             >
               {t(item.label, locale)}
             </Link>
           ))}
           <Link
             href={href(locale, routes.jobs)}
-            className="border-b border-hairline py-3 text-[15px] text-cream-dim"
+            className="border-b border-line py-3 text-[15px] text-ink-soft"
           >
             {ui("jobs", locale)}
           </Link>
-          <a
-            href={brand.ownersPortalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-b border-hairline py-3 text-[15px] text-cream-dim"
-          >
-            {ui("ownersPortal", locale)}
-          </a>
           <div className="flex gap-4 py-4">
             {locales.map((code) => (
               <Link
                 key={code}
                 href={swapLocale(code)}
                 className={`text-[14px] uppercase ${
-                  code === locale ? "text-gold" : "text-cream-faint"
+                  code === locale ? "text-gold-ink" : "text-ink-faint"
                 }`}
                 hrefLang={code}
               >

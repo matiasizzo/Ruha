@@ -23,13 +23,13 @@ export default function BrandStrip({ locale, showSegment = false }: { locale: Lo
               className="mx-auto h-8 w-auto object-contain opacity-80"
             />
           ) : (
-            <span className="text-[15px] font-medium text-cream">{brandItem.name}</span>
+            <span className="text-[15px] font-medium text-ink">{brandItem.name}</span>
           )}
-          <span className="text-[13px] tracking-normal text-cream-faint">
+          <span className="text-[13px] tracking-normal text-ink-faint">
             {brandItem.group}
           </span>
           {showSegment && (
-            <span className="text-[13px] text-cream-dim">{t(brandItem.segment, locale)}</span>
+            <span className="text-[13px] text-ink-soft">{t(brandItem.segment, locale)}</span>
           )}
         </li>
       ))}

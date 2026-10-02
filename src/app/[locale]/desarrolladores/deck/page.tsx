@@ -65,13 +65,13 @@ export default async function DeckPage({ params }: { params: Promise<{ locale: s
               {contents.map((item, index) => (
                 <li
                   key={index}
-                  className="border-t border-hairline py-5 text-[16px] leading-relaxed text-cream-dim"
+                  className="border-t border-line py-5 text-[16px] leading-relaxed text-ink-soft"
                 >
                   {item}
                 </li>
               ))}
             </ul>
-            <p className="mt-8 max-w-md text-[14px] leading-relaxed text-cream-faint">
+            <p className="mt-8 max-w-md text-[14px] leading-relaxed text-ink-faint">
               {locale === "es"
                 ? "Te lo mandamos al correo en cuanto envíes el formulario. Usamos tus datos para hacerte llegar el deck y dar seguimiento; nada más."
                 : "We'll email it to you as soon as you submit the form. We use your details to send the deck and follow up; nothing else."}

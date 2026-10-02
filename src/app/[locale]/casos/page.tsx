@@ -45,8 +45,8 @@ export default async function CasesPage({ params }: { params: Promise<{ locale: 
       <Section>
         <div className="flex flex-col gap-16">
           {cases.map((item, index) => (
-            <Reveal key={item.slug} delay={index * 100} className="border-t border-hairline pt-12">
-              <h2 className="display max-w-4xl text-h2 text-cream">
+            <Reveal key={item.slug} delay={index * 100} className="border-t border-line pt-12">
+              <h2 className="display max-w-4xl text-h2 text-ink">
                 {t(item.title, locale)}
               </h2>
               <dl className="mt-12 grid gap-10 lg:grid-cols-3">
@@ -55,7 +55,7 @@ export default async function CasesPage({ params }: { params: Promise<{ locale: 
                     <dt className="eyebrow mb-4">{t(block.label, locale)}</dt>
                     <dd
                       className={`text-[16px] leading-relaxed ${
-                        block.key === "result" ? "text-cream" : "text-cream-dim"
+                        block.key === "result" ? "text-ink" : "text-ink-soft"
                       }`}
                     >
                       {t(item[block.key], locale)}

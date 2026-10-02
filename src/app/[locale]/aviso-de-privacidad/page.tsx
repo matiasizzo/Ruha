@@ -102,9 +102,9 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
       <Section>
         <div className="flex max-w-3xl flex-col">
           {sections.map((section) => (
-            <div key={section.title} className="border-t border-hairline py-8">
-              <h2 className="text-h3 font-medium text-cream">{section.title}</h2>
-              <p className="mt-4 text-[16px] leading-relaxed text-cream-dim">{section.body}</p>
+            <div key={section.title} className="border-t border-line py-8">
+              <h2 className="text-h3 font-medium text-ink">{section.title}</h2>
+              <p className="mt-4 text-[16px] leading-relaxed text-ink-soft">{section.body}</p>
             </div>
           ))}
         </div>

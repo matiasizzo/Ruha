@@ -31,13 +31,13 @@ const base =
   "active:translate-y-px disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
-  // La acción principal: bloque de crema que vira a dorado.
-  primary: "bg-cream text-cacao shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)] hover:bg-gold",
+  // La acción principal: terracota que vira a café. Crema sobre terracota da 5.09:1.
+  primary: "bg-terra text-page shadow-[0_10px_24px_-14px_rgba(165,79,12,0.8)] hover:bg-ink",
   // La alternativa: filete que se enciende.
   secondary:
-    "border border-hairline-strong text-cream hover:border-gold hover:bg-gold/[0.06] hover:text-gold",
+    "border border-line-strong text-ink hover:border-terra hover:bg-terra/[0.06] hover:text-terra",
   // Para acciones terciarias dentro de bloques densos.
-  ghost: "text-cream-dim hover:text-gold",
+  ghost: "text-ink-soft hover:text-terra",
 };
 
 const sizes: Record<Size, string> = {

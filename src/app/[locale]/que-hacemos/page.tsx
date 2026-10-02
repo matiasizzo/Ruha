@@ -49,10 +49,10 @@ export default async function WhatWeDoPage({ params }: { params: Promise<{ local
             <Reveal
               key={model.id}
               delay={index * 90}
-              className="grid gap-6 border-t border-hairline py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-14"
+              className="grid gap-6 border-t border-line py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-14"
             >
               <div>
-                <h3 className="display text-h2 text-cream">
+                <h3 className="display text-h2 text-ink">
                   {t(model.title, locale)}
                 </h3>
                 <p className="mt-4 text-[13px] tracking-normal text-terra">
@@ -67,13 +67,13 @@ export default async function WhatWeDoPage({ params }: { params: Promise<{ local
         </div>
 
         <Reveal className="mt-10">
-          <p className="max-w-2xl text-[15px] leading-relaxed text-cream-faint">
+          <p className="max-w-2xl text-[15px] leading-relaxed text-ink-faint">
             {t(privatePortfolioNote, locale)}
           </p>
         </Reveal>
       </Section>
 
-      <Section className="border-t border-hairline bg-cacao-deep">
+      <Section className="border-t border-line bg-page-alt">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Servicios" : "Services"}
@@ -83,7 +83,7 @@ export default async function WhatWeDoPage({ params }: { params: Promise<{ local
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <Reveal key={index} delay={index * 60} as="li" className="panel px-6 py-8">
-              <p className="text-[16px] leading-snug text-cream">{t(service, locale)}</p>
+              <p className="text-[16px] leading-snug text-ink">{t(service, locale)}</p>
             </Reveal>
           ))}
         </ul>

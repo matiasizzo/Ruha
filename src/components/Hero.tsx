@@ -21,7 +21,10 @@ import { ButtonLink } from "@/components/ui/button";
  *    en un teléfono es un desastre de composición.
  *  - El bloque central no flota. El titular y los botones se quedan quietos.
  *  - El hero es sticky y queda detrás: de ahí sale que las secciones siguientes
- *    suban por encima como una cortina, sin JavaScript.
+ *    suban por encima como una cortina, sin JavaScript. La cortina la hace el
+ *    z-index del contenido que sigue (z-10), no uno negativo acá: con -z-10 el
+ *    hero quedaba detrás de <main> también para los clics, y los botones se
+ *    veían pero no se podían tocar.
  *
  * El fondo es una atmósfera en CSS a propósito: todavía no hay fotos y los dos
  * hoteles insignia no abren hasta 2026 y 2027. Cuando llegue el material se
@@ -37,7 +40,8 @@ import { ButtonLink } from "@/components/ui/button";
 const SLOTS = [
   { top: "12%", left: "6%", depth: 0.6, size: "h-24 w-24 lg:h-28 lg:w-28" },
   { top: "7%", left: "28%", depth: 1.4, size: "h-28 w-36 lg:h-32 lg:w-44" },
-  { top: "14%", left: "62%", depth: 2.2, size: "h-36 w-28 lg:h-48 lg:w-36" },
+  // En 62% el pie caía dentro del halo central y se leía apagado.
+  { top: "14%", left: "67%", depth: 2.2, size: "h-36 w-28 lg:h-48 lg:w-36" },
   { top: "9%", left: "84%", depth: 0.9, size: "h-24 w-24 lg:h-28 lg:w-28" },
   { top: "44%", left: "3%", depth: 1.8, size: "h-32 w-32 lg:h-40 lg:w-40" },
   { top: "52%", left: "85%", depth: 2.6, size: "h-36 w-28 lg:h-44 lg:w-32" },
@@ -70,7 +74,7 @@ function FloatingCard({
     // anima transform y termina en `transform: none` con fill-mode both, así que
     // su valor final pisaría el transform que escribe el bucle del parallax.
     <figure className="group animate-fade-up" style={{ animationDelay: `${delay}ms` }}>
-      <div className={`overflow-hidden border border-hairline ${size}`}>
+      <div className={`overflow-hidden rounded-2xl border border-line shadow-[0_18px_40px_-24px_rgba(39,20,6,0.45)] ${size}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
@@ -81,8 +85,8 @@ function FloatingCard({
         />
       </div>
       <figcaption className="mt-2">
-        <p className="whitespace-nowrap text-[12px] font-medium text-cream/80">{label}</p>
-        <p className="text-[12px] tracking-normal text-cream-faint">{meta}</p>
+        <p className="whitespace-nowrap text-[12px] font-medium text-ink">{label}</p>
+        <p className="text-[12px] tracking-normal text-ink-faint">{meta}</p>
       </figcaption>
     </figure>
   );
@@ -90,18 +94,11 @@ function FloatingCard({
 
 export default function Hero({ locale }: { locale: Locale }) {
   return (
-    <section className="sticky top-0 -z-10 h-[100svh] overflow-hidden">
+    <section className="sticky top-0 z-0 h-[100svh] overflow-hidden">
       {/* Atmósfera. TODO: reemplazar por foto o video cuando lleguen. */}
       <div
-        className="grain animate-drift absolute inset-[-8%]"
+        className="atmosphere grain animate-drift absolute inset-[-8%]"
         aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(120% 85% at 78% 8%, rgba(218,173,75,0.30), transparent 58%)," +
-            "radial-gradient(95% 75% at 8% 92%, rgba(165,79,12,0.34), transparent 62%)," +
-            "radial-gradient(70% 60% at 55% 45%, rgba(136,91,61,0.28), transparent 70%)," +
-            "linear-gradient(168deg,#3A2110 0%,#271406 46%,#150902 100%)",
-        }}
       />
 
       {/* Capa flotante. Sensibilidad negativa: las piezas se alejan del
@@ -109,10 +106,10 @@ export default function Hero({ locale }: { locale: Locale }) {
       <Floating sensitivity={-1.2} easingFactor={0.06} className="hidden md:block">
         {/* Dos gotas al fondo, en los extremos de profundidad. */}
         <FloatingElement depth={0.4} className="left-[-6%] top-[8%]">
-          <Isotipo className="h-[46vh] w-auto text-gold/[0.07]" />
+          <Isotipo className="h-[46vh] w-auto text-cafe/[0.12]" />
         </FloatingElement>
         <FloatingElement depth={3.6} className="right-[-4%] top-[38%]">
-          <Isotipo layer="spiral" className="h-[30vh] w-auto text-terra/[0.10]" />
+          <Isotipo layer="spiral" className="h-[30vh] w-auto text-terra/[0.14]" />
         </FloatingElement>
 
         {heroMedia.map((piece, index) => (
@@ -132,21 +129,22 @@ export default function Hero({ locale }: { locale: Locale }) {
         ))}
       </Floating>
 
-      {/* Oscurecido: el texto mantiene contraste sobre cualquier fondo. */}
+      {/* Halo claro detrás del bloque central: el texto mantiene contraste
+          aunque una foto flotante le pase por detrás. */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(21,9,2,0.86),rgba(21,9,2,0.35)_70%,transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_40%_46%_at_50%_54%,rgba(247,243,234,0.95),rgba(247,243,234,0.55)_68%,transparent)]"
         aria-hidden="true"
       />
 
       {/* Bloque central: quieto. */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
         <Isotipo
-          className="animate-fade-up h-16 w-auto text-gold lg:h-20"
+          className="animate-fade-up h-16 w-auto text-terra lg:h-20"
           style={{ animationDelay: "80ms" }}
         />
 
         <p
-          className="animate-fade-up mt-7 font-medium tracking-[0.34em] text-cream"
+          className="animate-fade-up mt-7 font-medium tracking-[0.34em] text-ink"
           style={{ animationDelay: "180ms", fontSize: "clamp(1.75rem,4vw,2.75rem)" }}
         >
           {brand.name}
@@ -157,16 +155,16 @@ export default function Hero({ locale }: { locale: Locale }) {
         </p>
 
         <h1
-          className="display animate-fade-up mt-10 max-w-[18ch] text-h1 text-cream"
+          className="display animate-fade-up mt-10 max-w-[18ch] text-h1 text-ink"
           style={{ animationDelay: "380ms" }}
         >
           {locale === "es" ? (
             <>
-              Operamos hoteles de <span className="text-gold">marca internacional</span> en México.
+              Operamos hoteles de <span className="italic text-terra">marca internacional</span> en México.
             </>
           ) : (
             <>
-              We operate <span className="text-gold">internationally branded</span> hotels in Mexico.
+              We operate <span className="italic text-terra">internationally branded</span> hotels in Mexico.
             </>
           )}
         </h1>

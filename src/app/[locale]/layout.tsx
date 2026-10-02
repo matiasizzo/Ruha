@@ -81,10 +81,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${poppins.variable} ${fraunces.variable}`}>
-      <body className="min-h-screen bg-cacao">
+      <body className="min-h-screen bg-page">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-cream focus:px-4 focus:py-2 focus:text-cacao"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-page"
         >
           {locale === "es" ? "Saltar al contenido" : "Skip to content"}
         </a>

@@ -12,18 +12,15 @@ import BrandStrip from "@/components/BrandStrip";
 import CTABand from "@/components/CTABand";
 import Hero from "@/components/Hero";
 import MapMexico from "@/components/MapMexico";
-import PropertyCard from "@/components/PropertyCard";
+import PortfolioCarousel from "@/components/PortfolioCarousel";
 import Reveal from "@/components/Reveal";
 import StatsBand from "@/components/StatsBand";
-import ZoomTransition from "@/components/ZoomTransition";
 import { Container, Section, SectionHead } from "@/components/Section";
 import { ButtonLink } from "@/components/ui/button";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-
-  const featured = properties.slice(0, 3);
 
   return (
     <>
@@ -32,15 +29,34 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Todo lo que sigue sube por encima del hero, que queda fijo detrás:
           de ahí sale el efecto cortina. Necesita fondo propio y opaco, si no
           se transparenta el hero. */}
-      <div className="relative z-0 bg-cacao">
+      <div className="relative z-10 bg-page">
 
-      {/* Puente: el logo se acerca hasta pasar de largo y entrega la pantalla
-          a las cifras. */}
-      <ZoomTransition locale={locale} />
+      {/* Portafolio en carrusel, apenas termina la portada: es lo primero que
+          un desarrollador quiere ver, y reemplaza al zoom del logo. */}
+      <Section>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <Reveal>
+            <SectionHead
+              eyebrow={locale === "es" ? "Portafolio" : "Portfolio"}
+              title={locale === "es" ? "Lo que operamos" : "What we operate"}
+              intro={t(privatePortfolioNote, locale)}
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <ButtonLink href={href(locale, routes.portfolio)} variant="secondary" arrow>
+              {ui("viewPortfolio", locale)}
+            </ButtonLink>
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-12">
+          <PortfolioCarousel properties={properties} locale={locale} />
+        </Reveal>
+      </Section>
 
       {/* Cifras + marcas: los dos mensajes del brief, demostrados y no
           explicados, apenas termina la portada. */}
-      <Section className="border-t border-hairline">
+      <Section className="border-t border-line">
         <StatsBand locale={locale} />
 
         <Reveal className="mt-16">
@@ -57,7 +73,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Section>
 
       {/* Alcance: el país entero dibujado, sólo los destinos reales marcados. */}
-      <Section className="border-t border-hairline bg-cacao-deep">
+      <Section className="border-t border-line bg-page-alt">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center">
           <Reveal>
             <SectionHead
@@ -91,7 +107,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Section>
 
       {/* Modelos de operación */}
-      <Section className="border-t border-hairline">
+      <Section className="border-t border-line">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Modelos de operación" : "Operating models" }
@@ -111,7 +127,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {operatingModels.map((model, index) => (
             <Reveal key={model.id} delay={index * 100} className="flex flex-col gap-4 panel p-8 lg:p-10">
-              <h3 className="text-h3 font-medium leading-tight text-cream">
+              <h3 className="text-h3 font-medium leading-tight text-ink">
                 {t(model.title, locale)}
               </h3>
               <p className="prose-body text-small">{t(model.body, locale)}</p>
@@ -123,39 +139,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </Section>
 
-      {/* Portafolio destacado */}
-      <Section className="border-t border-hairline bg-cacao-deep">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <Reveal>
-            <SectionHead
-              eyebrow={locale === "es" ? "Portafolio" : "Portfolio"}
-              title={locale === "es" ? "Lo que operamos hoy" : "What we operate today"}
-            />
-          </Reveal>
-          <Reveal delay={80}>
-            <ButtonLink href={href(locale, routes.portfolio)} variant="secondary" arrow>
-              {ui("viewPortfolio", locale)}
-            </ButtonLink>
-          </Reveal>
-        </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((property, index) => (
-            <Reveal key={property.slug} delay={index * 100}>
-              <PropertyCard property={property} locale={locale} index={index} />
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mt-10">
-          <p className="max-w-2xl text-[15px] leading-relaxed text-cream-faint">
-            {t(privatePortfolioNote, locale)}
-          </p>
-        </Reveal>
-      </Section>
-
       {/* Postura: la misión y la visión en tres frases, no en tres párrafos. */}
-      <Section className="border-t border-hairline">
+      <Section className="border-t border-line">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
           <Reveal>
             <SectionHead
@@ -168,10 +153,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <Reveal
                 key={index}
                 delay={index * 110}
-                className="border-t border-hairline py-8 first:border-t-0 first:pt-0"
+                className="border-t border-line py-8 first:border-t-0 first:pt-0"
               >
                 <p className="eyebrow mb-4">{t(item.label, locale)}</p>
-                <p className="max-w-2xl text-[19px] leading-relaxed text-cream lg:text-[22px]">
+                <p className="max-w-2xl text-[19px] leading-relaxed text-ink lg:text-[22px]">
                   {t(item.body, locale)}
                 </p>
               </Reveal>
@@ -181,10 +166,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Section>
 
       {/* Equipo: en este negocio se contrata a las personas, no a la empresa. */}
-      <Section className="border-t border-hairline bg-cacao-deep">
+      <Section className="border-t border-line bg-page-alt">
         <Reveal>
           <SectionHead
-            eyebrow={locale === "es" ? "Equipo" : "Team"}
+            eyebrow={locale === "es" ? "Nuestros líderes" : "Our leaders"}
             title={
               locale === "es"
                 ? "Los socios están en las propiedades"
@@ -204,19 +189,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {/* TODO: retratos pendientes. Hasta entonces, un plano de color
                   de marca en lugar de un avatar genérico. */}
               <div
-                className="grain aspect-[4/5] w-full"
-                style={{
-                  background:
-                    "linear-gradient(160deg,rgba(136,91,61,0.42) 0%,rgba(39,20,6,1) 78%)",
-                }}
+                className="photo-placeholder grain aspect-[4/5] w-full rounded-3xl"
                 aria-hidden="true"
               />
               <div>
-                <h3 className="text-h3 font-medium text-cream">{member.name}</h3>
-                <p className="mt-1 text-[13px] tracking-normal text-gold">
+                <h3 className="text-h3 font-medium text-ink">{member.name}</h3>
+                <p className="mt-1 text-[13px] tracking-normal text-gold-ink">
                   {t(member.role, locale)}
                 </p>
-                <p className="mt-3 text-[14px] leading-relaxed text-cream-dim">
+                <p className="mt-3 text-[14px] leading-relaxed text-ink-soft">
                   {t(member.bio, locale)}
                 </p>
               </div>

@@ -37,10 +37,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <div className="flex flex-col gap-10">
               <div>
                 <p className="eyebrow mb-4">{locale === "es" ? "Base" : "Based in"}</p>
-                <p className="text-[17px] leading-relaxed text-cream">
+                <p className="text-[17px] leading-relaxed text-ink">
                   {locale === "es" ? "Riviera Maya, México" : "Riviera Maya, Mexico"}
                 </p>
-                <p className="mt-2 text-[15px] leading-relaxed text-cream-dim">
+                <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
                   {locale === "es"
                     ? "Operación en Tulum, Playa del Carmen, Cancún y Mérida."
                     : "Operations in Tulum, Playa del Carmen, Cancún and Mérida."}
@@ -52,7 +52,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 {/* TODO: correo definitivo, atado al dominio que se elija. */}
                 <a
                   href={`mailto:${brand.email}`}
-                  className="text-[17px] text-cream underline underline-offset-4 transition-colors hover:text-gold"
+                  className="text-[17px] text-ink underline underline-offset-4 transition-colors hover:text-terra"
                 >
                   {brand.email}
                 </a>
@@ -64,18 +64,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   href={brand.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[17px] text-cream underline underline-offset-4 transition-colors hover:text-gold"
+                  className="text-[17px] text-ink underline underline-offset-4 transition-colors hover:text-terra"
                 >
                   {brand.name} Hospitality Group ↗
                 </a>
-              </div>
-
-              <div className="border-t border-hairline pt-8">
-                <p className="max-w-md text-[14px] leading-relaxed text-cream-faint">
-                  {locale === "es"
-                    ? "Si eres propietario de una unidad en una de nuestras propiedades, usa el Portal de Propietarios en el menú: ahí está tu estado de cuenta."
-                    : "If you own a unit in one of our properties, use the Owners' Portal in the menu: your statement is there."}
-                </p>
               </div>
             </div>
           </Reveal>

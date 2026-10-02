@@ -65,7 +65,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
           <div className="grid gap-4 self-start sm:grid-cols-2">
             {services.map((service, index) => (
               <Reveal key={index} delay={index * 60} className="panel px-6 py-7">
-                <p className="text-[15px] leading-snug text-cream">{t(service, locale)}</p>
+                <p className="text-[15px] leading-snug text-ink">{t(service, locale)}</p>
               </Reveal>
             ))}
           </div>
@@ -73,7 +73,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
       </Section>
 
       {/* El proceso sí es una secuencia real, y por eso va numerado. */}
-      <Section className="border-t border-hairline bg-cacao-deep">
+      <Section className="border-t border-line bg-page-alt">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Cómo trabajamos" : "How we work"}
@@ -87,12 +87,12 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
               key={index}
               delay={index * 80}
               as="li"
-              className="grid gap-4 border-t border-hairline py-8 lg:grid-cols-[80px_minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-10"
+              className="grid gap-4 border-t border-line py-8 lg:grid-cols-[80px_minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-10"
             >
               <span className="font-display text-[15px] italic tabular text-terra">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-h3 font-medium leading-tight text-cream">
+              <h3 className="text-h3 font-medium leading-tight text-ink">
                 {t(step.title, locale)}
               </h3>
               <p className="prose-body">{t(step.body, locale)}</p>
@@ -101,7 +101,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
         </ol>
       </Section>
 
-      <Section className="border-t border-hairline">
+      <Section className="border-t border-line">
         <Reveal>
           <SectionHead
             eyebrow={locale === "es" ? "Prueba" : "Proof"}
@@ -112,10 +112,10 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
         <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <Reveal key={index} delay={index * 80} className="panel px-6 py-10">
-              <p className="display text-[clamp(2.25rem,5vw,3.75rem)] text-cream">
+              <p className="display text-[clamp(2.25rem,5vw,3.75rem)] text-ink">
                 <Counter value={stat.value} />
               </p>
-              <p className="mt-3 max-w-[18ch] text-[13px] leading-snug text-cream-dim">
+              <p className="mt-3 max-w-[18ch] text-[13px] leading-snug text-ink-soft">
                 {t(stat.label, locale)}
               </p>
             </Reveal>
@@ -127,9 +127,9 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
         </Reveal>
 
         {mainCase && (
-          <Reveal className="mt-16 rounded-lg border border-hairline bg-cacao-raised/40 p-8 lg:p-12">
+          <Reveal className="mt-16 rounded-lg border border-line bg-surface p-8 lg:p-12">
             <p className="eyebrow mb-5">{locale === "es" ? "Caso" : "Case"}</p>
-            <h3 className="display max-w-3xl text-h2 text-cream">
+            <h3 className="display max-w-3xl text-h2 text-ink">
               {t(mainCase.title, locale)}
             </h3>
             <dl className="mt-10 grid gap-8 lg:grid-cols-3">
@@ -147,14 +147,14 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
               </div>
               <div>
                 <dt className="eyebrow mb-3">{locale === "es" ? "Resultado" : "Result"}</dt>
-                <dd className="text-[15px] leading-relaxed text-cream">
+                <dd className="text-[15px] leading-relaxed text-ink">
                   {t(mainCase.result, locale)}
                 </dd>
               </div>
             </dl>
             <Link
               href={href(locale, routes.cases)}
-              className="mt-10 inline-block text-[13px] tracking-normal text-cream-dim underline underline-offset-4 transition-colors hover:text-gold"
+              className="mt-10 inline-block text-[13px] tracking-normal text-ink-soft underline underline-offset-4 transition-colors hover:text-terra"
             >
               {ui("cases", locale)} →
             </Link>
@@ -164,19 +164,11 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
 
       {/* Cierre propio: en esta página el deck es la acción principal, así que
           no usamos la banda genérica. */}
-      <section className="grain relative overflow-hidden border-t border-hairline bg-cacao-raised">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(80% 120% at 80% 0%, rgba(218,173,75,0.20), transparent 60%), radial-gradient(70% 90% at 0% 100%, rgba(165,79,12,0.26), transparent 65%)",
-          }}
-          aria-hidden="true"
-        />
+      <section className="atmosphere-soft grain relative overflow-hidden border-t border-line">
         <div className="relative mx-auto w-full max-w-[1400px] px-6 py-24 lg:px-12 lg:py-32">
           <div className="max-w-3xl">
             <p className="eyebrow mb-6">{locale === "es" ? "Siguiente paso" : "Next step"}</p>
-            <h2 className="display text-h1 text-cream">
+            <h2 className="display text-h1 text-ink">
               {locale === "es"
                 ? "Llévate el deck corporativo."
                 : "Take the corporate deck with you."}

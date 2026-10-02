@@ -37,7 +37,7 @@ export function SectionHead({
   return (
     <div className={`max-w-3xl ${className}`}>
       {eyebrow && <p className="eyebrow mb-5">{eyebrow}</p>}
-      <h2 className="display text-h1 text-cream">{title}</h2>
+      <h2 className="display text-h1 text-ink">{title}</h2>
       {intro && <p className="lead mt-6 max-w-2xl">{intro}</p>}
     </div>
   );
