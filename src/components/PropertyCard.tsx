@@ -1,96 +1,94 @@
 import type { Locale, Property } from "@/content/site";
 import { t, ui } from "@/lib/i18n";
+import { RoundArrowLink } from "./brand/BrandArrow";
 
 /**
- * Tarjeta de propiedad. Toda la tarjeta es el enlace saliente al sitio del
- * hotel, en pestaña nueva, tal como pide el brief.
+ * Tarjeta de propiedad, con el esquema de Chaletô:
+ *  - foto apaisada (1.4), sin redondear;
+ *  - sello en la esquina inferior derecha, con sólo esa esquina redondeada.
+ *    Donde Chaletô pone el precio, RÜHA pone las llaves o el año de apertura:
+ *    el sitio no vende noches;
+ *  - título, ubicación con pin y datos separados por filetes verticales.
  *
- * Mientras no lleguen las fotos, la imagen se resuelve con un degradado de
- * marca en lugar de un placeholder gris: el grid se ve terminado desde hoy y
- * cambiarlo después es agregar `image` en site.ts.
+ * Toda la tarjeta es el enlace saliente al sitio del hotel, en pestaña nueva,
+ * tal como pide el brief.
  */
 export default function PropertyCard({
   property,
   locale,
-  index = 0,
 }: {
   property: Property;
   locale: Locale;
+  /** Se mantiene por compatibilidad con los listados que ya la pasan. */
   index?: number;
 }) {
   const isOperating = property.status === "operating";
-  const meta = [
+
+  // Sello: si abre, el año manda; si opera, las llaves.
+  const openingYear = property.opening ? t(property.opening, locale).match(/\d{4}/)?.[0] : undefined;
+  const seal = !isOperating && openingYear
+    ? { top: ui("opening", locale), main: openingYear }
+    : property.keys
+      ? { top: ui("operating", locale), main: `${property.keys} ${ui("keys", locale)}` }
+      : { top: ui("operating", locale), main: `${property.units} ${ui("units", locale)}` };
+
+  const specs = [
     property.keys ? `${property.keys} ${ui("keys", locale)}` : null,
     property.units ? `${property.units} ${ui("units", locale)}` : null,
-  ].filter(Boolean);
+    property.brandLabel ?? null,
+  ].filter(Boolean) as string[];
 
-  const inner = (
+  const body = (
     <>
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-[1.4] overflow-hidden bg-page-alt">
         {property.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={property.image}
-            alt={property.name}
-            className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
           />
         ) : (
-          <div
-            className="photo-placeholder grain h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
-            aria-hidden="true"
-          />
+          <div className="photo-placeholder grain h-full w-full" aria-hidden="true" />
         )}
 
-        <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
-          <span
-            className={`text-[13px] tracking-normal ${
-              isOperating ? "text-gold-ink" : "text-ink-soft"
-            }`}
-          >
-            {isOperating ? ui("operating", locale) : ui("opening", locale)}
-          </span>
+        <div
+          className={`absolute bottom-0 right-0 flex flex-col items-end gap-0.5 rounded-tl-lg px-4 py-3 text-page ${
+            isOperating ? "bg-terra" : "bg-ink"
+          }`}
+        >
+          <span className="text-[12px]">{seal.top}</span>
+          <span className="text-[15px] font-semibold">{seal.main}</span>
         </div>
-
-        {/* El logo de la marca es la prueba visual de que somos multimarca.
-            TODO: sustituir por el PNG del franquiciante cuando esté aprobado;
-            hasta entonces va el nombre en texto, que no requiere permiso. */}
-        {property.brandLabel && (
-          <div className="absolute inset-x-0 bottom-0 border-t border-line bg-page/85 px-4 py-2.5 backdrop-blur-sm">
-            <span className="text-[13px] tracking-normal text-ink-soft">
-              {property.brandLabel}
-            </span>
-          </div>
-        )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="text-h3 font-medium leading-tight text-ink">{property.name}</h3>
-        <p className="text-[13px] tracking-normal text-ink-faint">
-          {t(property.city, locale)} · {t(property.state, locale)}
-          {meta.length > 0 && ` · ${meta.join(" · ")}`}
+      <div className="flex grow flex-col gap-3 pt-4">
+        <h3 className="text-[19px] font-medium leading-snug text-ink transition-colors group-hover:text-terra">
+          {property.name}
+        </h3>
+
+        <p className="flex items-start gap-1.5 text-[14px] text-ink-soft">
+          <PinIcon />
+          {t(property.city, locale)}, {t(property.state, locale)}
         </p>
-        <p className="mt-1 text-[14px] leading-relaxed text-ink-soft">
-          {t(property.summary, locale)}
-        </p>
-        {property.opening && (
-          <p className="mt-1 text-[13px] tracking-normal text-terra">
-            {t(property.opening, locale)}
-          </p>
-        )}
-        {property.href && (
-          <span className="mt-auto pt-4 text-[13px] tracking-normal text-ink-faint transition-colors group-hover:text-terra">
-            {ui("visitSite", locale)} ↗
-          </span>
+
+        {specs.length > 0 && (
+          <ul className="mt-auto flex flex-wrap items-center text-[14px] text-ink">
+            {specs.map((spec, index) => (
+              <li key={spec} className="flex items-center">
+                {index > 0 && <span className="mx-3 h-4 w-px bg-line-strong" aria-hidden="true" />}
+                {spec}
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </>
   );
 
-  const className =
-    "group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-colors duration-500 hover:border-line-strong";
-
   if (!property.href) {
-    return <article className={className}>{inner}</article>;
+    return <article className="group flex h-full flex-col pb-2">{body}</article>;
   }
 
   return (
@@ -98,10 +96,31 @@ export default function PropertyCard({
       href={property.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={className}
       title={ui("externalLink", locale)}
+      className="group flex h-full flex-col pb-2"
     >
-      {inner}
+      {body}
     </a>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg viewBox="0 0 16 20" className="mt-0.5 h-4 w-auto shrink-0" fill="currentColor" aria-hidden="true">
+      <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 7.35c2.03-1.87 3.54-3.56 4.53-5.09.98-1.53 1.47-2.88 1.47-4.06 0-1.82-.58-3.3-1.74-4.46A5.9 5.9 0 0 0 8 2c-1.68 0-3.1.58-4.26 1.74C2.58 4.9 2 6.38 2 8.2c0 1.18.49 2.53 1.47 4.06.99 1.53 2.5 3.22 4.53 5.09ZM8 20c-2.68-2.28-4.69-4.4-6.01-6.36C.66 11.68 0 9.87 0 8.2 0 5.7.8 3.71 2.41 2.23A7.7 7.7 0 0 1 8 0c2.12 0 3.98.74 5.59 2.23C15.2 3.71 16 5.7 16 8.2c0 1.67-.66 3.48-1.99 5.44C12.69 15.6 10.68 17.72 8 20Z" />
+    </svg>
+  );
+}
+
+/** Último bloque de la grilla o el carrusel: "Ver todo", en color de marca. */
+export function SeeAllCard({ href, locale }: { href: string; locale: Locale }) {
+  const label = locale === "es" ? "Ver todo el portafolio" : "See the full portfolio";
+  return (
+    <div className="flex h-full min-h-[22rem] flex-col items-center justify-center gap-8 bg-terra p-8 text-center text-page">
+      <p className="text-[clamp(1.5rem,2.4vw,2rem)] font-medium italic leading-tight">
+        {locale === "es" ? "Ver todo" : "See all"}
+      </p>
+      <RoundArrowLink href={href} label={label} tone="light" />
+    </div>
   );
 }

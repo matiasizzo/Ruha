@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
  *  - Foco visible heredado del global, sin anularlo nunca.
  */
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "dark" | "light";
 type Size = "md" | "sm";
 
 const base =
@@ -38,6 +38,9 @@ const variants: Record<Variant, string> = {
     "border border-line-strong text-ink hover:border-terra hover:bg-terra/[0.06] hover:text-terra",
   // Para acciones terciarias dentro de bloques densos.
   ghost: "text-ink-soft hover:text-terra",
+  // Sobre foto o color: píldora café y píldora crema, como en el hero.
+  dark: "bg-ink text-page hover:bg-terra",
+  light: "bg-page text-ink hover:bg-gold",
 };
 
 const sizes: Record<Size, string> = {

@@ -38,7 +38,7 @@ function spiralPath(cx: number, cy: number, turns = 2.4, start = 3, growth = 0.2
 const SPIRAL = spiralPath(58, 104);
 
 /** Contorno de la gota: punta arriba, panza abajo. */
-const OUTLINE =
+export const OUTLINE =
   "M50 2 C62 34 94 70 94 98 A44 44 0 1 1 6 98 C6 70 38 34 50 2 Z";
 
 /** Líneas escalonadas: leen como terrazas, olas u horizontes. */

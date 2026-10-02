@@ -38,22 +38,11 @@
   --color-line-strong: rgba(39, 20, 6, 0.24);
 
   /*
-    Dos familias, ninguna monoespaciada.
-
-    La monoespaciada era el problema. Etiquetas en mono, retículas de filetes y
-    esquinas a noventa grados son el vocabulario de un panel técnico, no el de
-    una casa que opera hoteles. Fuera.
-
-    Fraunces lleva los titulares: es una serif de trazo blando, con remates
-    redondeados y algo de irregularidad deliberada. Es lo que pone la calidez
-    que la geométrica sola no puede dar.
-
-    Poppins —la tipografía de la identidad de Monarca— se queda en texto e
-    interfaz, que es donde una geométrica sí rinde.
-
-    PENDIENTE DE APROBACIÓN: sumar Fraunces es una decisión de marca.
+    Una sola familia: Poppins, la de la identidad de Monarca, como pide el
+    brief. La jerarquía sale del tamaño, el peso y la cursiva, no de mezclar
+    fuentes. Sin monoespaciada: era lo que hacía ver el sitio como un panel.
   */
-  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-display: var(--font-poppins), "Avenir Next", system-ui, sans-serif;
   --font-sans: var(--font-poppins), "Avenir Next", system-ui, sans-serif;
 
   /*
@@ -128,7 +117,7 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     text-wrap: balance;
   }
 
@@ -139,25 +128,19 @@
 }
 
 @layer components {
-  /*
-    Etiqueta de sección. Antes iba en monoespaciada y mayúsculas: es el gesto
-    que más "panel de control" aportaba. Ahora va en la serif, en cursiva y en
-    caja baja, que es como se titula en una carta o en una revista.
-  */
+  /* Etiqueta de sección: Poppins, mediana, en terracota. */
   .eyebrow {
-    font-family: var(--font-display);
-    font-style: italic;
+    font-family: var(--font-sans);
     font-size: var(--text-label);
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--color-gold-ink);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-terra);
   }
 
-  /* Titular. La serif de display es la que pone la calidez. */
+  /* Titular. */
   .display {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: var(--text-display--letter-spacing);
     line-height: 1.04;
   }
@@ -330,5 +313,81 @@
 
   .map-pulse {
     opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Cargador de entrada (ver BrandLoader.tsx)                           */
+/* ------------------------------------------------------------------ */
+
+.brand-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-page);
+  pointer-events: none;
+  animation: loader-out 0.6s var(--ease-out-soft) 0.9s forwards;
+}
+
+.brand-loader__mark {
+  animation: loader-mark 0.9s var(--ease-out-soft) both;
+}
+
+@keyframes loader-mark {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes loader-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+html[data-intro="seen"] .brand-loader {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Franja de marcas (ver LogoMarquee.tsx)                              */
+/* ------------------------------------------------------------------ */
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+/* Se frena al pasar el mouse: alguien quiere leer una marca. */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-loader {
+    display: none;
+  }
+
+  /* Sin movimiento, la franja pasa a ser una fila que se puede recorrer. */
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
   }
 }

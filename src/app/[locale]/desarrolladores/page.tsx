@@ -89,7 +89,7 @@ export default async function DevelopersPage({ params }: { params: Promise<{ loc
               as="li"
               className="grid gap-4 border-t border-line py-8 lg:grid-cols-[80px_minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-10"
             >
-              <span className="font-display text-[15px] italic tabular text-terra">
+              <span className="text-[15px] font-medium tabular text-terra">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="text-h3 font-medium leading-tight text-ink">

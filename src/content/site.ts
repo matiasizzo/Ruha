@@ -263,60 +263,113 @@ export const privatePortfolioNote: I18nText = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Imágenes flotantes del hero                                         */
+/* Hero                                                                */
 /* ------------------------------------------------------------------ */
 
 /**
- * PROVISIONAL. Fotos de stock de Unsplash, puestas para poder evaluar el
- * efecto del hero antes de que lleguen las fotos reales.
+ * Video de fondo del hero.
  *
- * Ninguna de estas imágenes es de una propiedad de RÜHA y no deben publicarse
- * como si lo fueran. Cuando lleguen las fotos: subirlas a /public/media y
- * cambiar `src` por la ruta local. Es lo único que hay que tocar.
+ * PROVISIONAL. El archivo no está en el repo: hay que descargar un video de
+ * referencia (o el de dron real, cuando exista), guardarlo como
+ * public/media/hero.mp4 y listo. Mientras no esté, el navegador muestra la
+ * imagen de `poster`, así que el hero nunca queda vacío.
  *
- * `label` y `meta` son reales y salen del portafolio: aunque la foto sea de
- * stock, lo que se lee sí comunica los dos mensajes del brief.
+ * Para que no pese: 10 a 20 segundos, 1080p, sin audio, H.264, idealmente por
+ * debajo de 8 MB.
  */
-export const heroMedia: { src: string; label: string; meta: string }[] = [
+export const heroVideo = {
+  src: "/media/hero.mp4",
+  // PROVISIONAL: foto de stock como póster. No es de una propiedad de RÜHA.
+  poster: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1400&auto=format&fit=crop",
+};
+
+/* ------------------------------------------------------------------ */
+/* Franja de marcas                                                    */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Lo que desfila debajo del hero: las marcas con las que se opera y los
+ * canales donde se distribuye (brief §12). Hoy va en texto; cuando lleguen los
+ * PNG aprobados, se agrega `logo` a cada uno. El uso público de las marcas de
+ * franquicia suele requerir aprobación del franquiciante.
+ */
+export const marquee: { name: string; kind: I18nText; logo?: string }[] = [
+  { name: "Wyndham", kind: { es: "Franquicia", en: "Franchise" } },
+  { name: "Ramada by Wyndham", kind: { es: "Franquicia", en: "Franchise" } },
+  { name: "Dazzler by Wyndham", kind: { es: "Franquicia", en: "Franchise" } },
+  { name: "IHG", kind: { es: "Franquicia", en: "Franchise" } },
+  { name: "Holiday Inn", kind: { es: "Franquicia", en: "Franchise" } },
+  { name: "Vöco", kind: { es: "Franquicia", en: "Franchise" } },
+  { name: "Booking.com", kind: { es: "Distribución", en: "Distribution" } },
+  { name: "Expedia", kind: { es: "Distribución", en: "Distribution" } },
+  { name: "Airbnb", kind: { es: "Distribución", en: "Distribution" } },
+];
+
+/* ------------------------------------------------------------------ */
+/* Bloques por audiencia                                               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Los tres modelos de operación del brief (§4), contados desde quien llega al
+ * sitio y no desde la operadora. Cada uno ocupa una pantalla y se apilan al
+ * bajar.
+ */
+export type Audience = {
+  id: string;
+  tone: "terra" | "cacao" | "cream";
+  title: I18nText;
+  lead: I18nText;
+  body: I18nText;
+  cta: I18nText;
+  /** PROVISIONAL: fotos de stock, no son de propiedades de RÜHA. */
+  images: [string, string];
+};
+
+export const audiences: Audience[] = [
   {
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
-    label: "Tulum",
-    meta: "Quintana Roo",
+    id: "patrimonial",
+    tone: "terra",
+    title: { es: "Tengo un hotel", en: "I own a hotel" },
+    lead: {
+      es: "Un dueño, un hotel completo, una marca internacional.",
+      en: "One owner, one whole hotel, one international brand.",
+    },
+    body: {
+      es: "Elegimos la bandera que mejor rinde para tu producto —no vendemos una sola—, gestionamos la franquicia y operamos el día a día bajo los manuales del franquiciante. Cada mes recibes el estado de resultados, sin letra chica.",
+      en: "We pick the flag that performs best for your product — we don't sell just one — manage the franchise and run day-to-day operations under the franchisor's manuals. Every month you get the P&L, with no fine print.",
+    },
+    cta: { es: "Operación de hoteles", en: "Hotel operations" },
+    images: ["https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=1400&auto=format&fit=crop", "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1400&auto=format&fit=crop"],
   },
   {
-    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop",
-    label: "Ramada by Wyndham",
-    meta: "Wyndham",
+    id: "condohotel",
+    tone: "cacao",
+    title: { es: "Estoy desarrollando un condominio", en: "I'm developing a condominium" },
+    lead: {
+      es: "Muchos propietarios, una sola operación hotelera.",
+      en: "Many owners, a single hotel operation.",
+    },
+    body: {
+      es: "Armamos el rental pool, llevamos la pre-apertura —presupuesto, ruta crítica, contratación y sistemas— y abrimos bajo marca internacional. Después administramos el condominio y reportamos a cada propietario por separado.",
+      en: "We set up the rental pool, run pre-opening — budget, critical path, hiring and systems — and open under an international brand. Then we manage the condominium and report to each owner individually.",
+    },
+    cta: { es: "Para desarrolladores", en: "For developers" },
+    images: ["https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1400&auto=format&fit=crop", "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1400&auto=format&fit=crop"],
   },
   {
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=800&auto=format&fit=crop",
-    label: "Playa del Carmen",
-    meta: "Quintana Roo",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=800&auto=format&fit=crop",
-    label: "Vöco",
-    meta: "IHG",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=800&auto=format&fit=crop",
-    label: "Holiday Inn",
-    meta: "IHG",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=800&auto=format&fit=crop",
-    label: "Cancún",
-    meta: "Quintana Roo",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
-    label: "Mérida",
-    meta: "Yucatán",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop",
-    label: "Dazzler by Wyndham",
-    meta: "Wyndham",
+    id: "rental",
+    tone: "cream",
+    title: { es: "Tengo una villa", en: "I own a villa" },
+    lead: {
+      es: "Renta vacacional y cuidado del patrimonio.",
+      en: "Vacation rental and asset care.",
+    },
+    body: {
+      es: "Es donde empezamos. Comercializamos tu villa o departamento en las principales plataformas, la cuidamos entre estancias y te rendimos cuentas cada mes, como al dueño de un hotel.",
+      en: "It's where we started. We market your villa or apartment on the main platforms, look after it between stays and report to you every month, just like a hotel owner.",
+    },
+    cta: { es: "Hablemos de tu propiedad", en: "Let's talk about your property" },
+    images: ["https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1400&auto=format&fit=crop", "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1400&auto=format&fit=crop"],
   },
 ];
 

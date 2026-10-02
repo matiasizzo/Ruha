@@ -28,6 +28,10 @@ export default function Header({ locale }: { locale: Locale }) {
     return href(target, rest);
   };
 
+  // Sobre el video del home y sin scroll, el header va en blanco; al bajar o
+  // abrir el menú vuelve al fondo claro con texto café.
+  const overHero = pathname === href(locale) && !scrolled && !open;
+
   const isActive = (route: string) => {
     const full = href(locale, route);
     return route === "" ? pathname === full : pathname.startsWith(full);
@@ -35,14 +39,15 @@ export default function Header({ locale }: { locale: Locale }) {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+      data-over={overHero}
+      className={`group fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         scrolled || open ? "bg-page/90 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center gap-6 px-6 py-5 lg:px-12">
         <Link href={href(locale)} className="shrink-0">
           {/* 18px es el mínimo con el que la "A" gota del logo sigue legible. */}
-          <Wordmark className="text-[18px]" />
+          <Wordmark className="text-[18px] transition-colors group-data-[over=true]:text-white" />
         </Link>
 
         <nav className="ml-auto hidden items-center gap-8 lg:flex">
@@ -50,7 +55,7 @@ export default function Header({ locale }: { locale: Locale }) {
             <Link
               key={item.route}
               href={href(locale, item.route)}
-              className={`text-[13px] transition-colors hover:text-ink ${
+              className={`text-[13px] transition-colors hover:text-ink group-data-[over=true]:text-white/90 group-data-[over=true]:hover:text-white ${
                 isActive(item.route) ? "text-gold-ink" : "text-ink-soft"
               }`}
             >
@@ -65,7 +70,7 @@ export default function Header({ locale }: { locale: Locale }) {
               <Link
                 key={code}
                 href={swapLocale(code)}
-                className={`text-[13px] tracking-normal transition-colors ${
+                className={`text-[13px] tracking-normal transition-colors group-data-[over=true]:text-white ${
                   code === locale ? "text-ink" : "text-ink-faint hover:text-ink-soft"
                 }`}
                 hrefLang={code}
@@ -90,12 +95,12 @@ export default function Header({ locale }: { locale: Locale }) {
             className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] lg:hidden"
           >
             <span
-              className={`block h-px w-5 bg-ink transition-transform duration-300 ${
+              className={`block h-px w-5 bg-ink transition-transform duration-300 group-data-[over=true]:bg-white ${
                 open ? "translate-y-[3px] rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-px w-5 bg-ink transition-transform duration-300 ${
+              className={`block h-px w-5 bg-ink transition-transform duration-300 group-data-[over=true]:bg-white ${
                 open ? "-translate-y-[3px] -rotate-45" : ""
               }`}
             />

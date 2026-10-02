@@ -1,30 +1,22 @@
 import type { Metadata } from "next";
-import { Fraunces, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/content/site";
 import { brand } from "@/content/site";
 import { isLocale, locales, t } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BrandLoader, { introScript } from "@/components/brand/BrandLoader";
 import "../globals.css";
 
-// Poppins es la tipografía de la identidad de Monarca. Se queda en texto e
-// interfaz, que es donde una geométrica rinde.
+// Poppins es la tipografía de la identidad de Monarca y, como pide el brief,
+// la única del sitio. La cursiva se carga para los titulares grandes de los
+// bloques por audiencia.
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
-  variable: "--font-poppins",
-  display: "swap",
-});
-
-// Fraunces lleva los titulares. Es una serif de trazo blando con remates
-// redondeados: pone la calidez que una geométrica sola no puede dar, y es lo
-// contrario del registro industrial que tenía el sitio.
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
-  variable: "--font-fraunces",
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -80,8 +72,13 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   return (
-    <html lang={locale} className={`${poppins.variable} ${fraunces.variable}`}>
+    <html lang={locale} className={poppins.variable} suppressHydrationWarning>
+      <head>
+        {/* Antes de pintar: decide si el cargador de entrada ya se vio. */}
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      </head>
       <body className="min-h-screen bg-page">
+        <BrandLoader />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-page"

@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  operatingModels,
   privatePortfolioNote,
   properties,
   purpose,
   team,
 } from "@/content/site";
 import { href, isLocale, routes, t, ui } from "@/lib/i18n";
-import BrandStrip from "@/components/BrandStrip";
+import AudienceStack from "@/components/AudienceStack";
 import CTABand from "@/components/CTABand";
 import Hero from "@/components/Hero";
+import LogoMarquee from "@/components/LogoMarquee";
 import MapMexico from "@/components/MapMexico";
 import PortfolioCarousel from "@/components/PortfolioCarousel";
 import Reveal from "@/components/Reveal";
@@ -26,13 +26,29 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <Hero locale={locale} />
 
-      {/* Todo lo que sigue sube por encima del hero, que queda fijo detrás:
-          de ahí sale el efecto cortina. Necesita fondo propio y opaco, si no
-          se transparenta el hero. */}
-      <div className="relative z-10 bg-page">
+      {/* Franja de marcas y plataformas en movimiento. */}
+      <LogoMarquee locale={locale} />
 
-      {/* Portafolio en carrusel, apenas termina la portada: es lo primero que
-          un desarrollador quiere ver, y reemplaza al zoom del logo. */}
+      {/* Cifras: lo primero que mira un desarrollador. Las marcas ya
+          pasaron en la franja de arriba, así que acá sólo va la frase que
+          explica por qué importa que sean varias. */}
+      <Section>
+        <StatsBand locale={locale} />
+        <Reveal className="mt-10">
+          <p className="max-w-2xl prose-body">
+            {locale === "es"
+              ? "El dueño no está casado con nuestro logo, sino con la marca que mejor rinde para su producto. Esa es la diferencia entre una operadora multimarca y una cadena."
+              : "The owner isn't tied to our logo, but to the brand that performs best for their product. That is the difference between a multi-brand operator and a chain."}
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* Tres pantallas, una por audiencia, que se apilan al bajar. Reemplazan
+          la grilla de "modelos de operación". */}
+      <AudienceStack locale={locale} />
+
+      {/* Portafolio en carrusel, con las tarjetas de Chaletô y el bloque
+          "Ver todo" al final. */}
       <Section>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal>
@@ -51,24 +67,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
         <Reveal className="mt-12">
           <PortfolioCarousel properties={properties} locale={locale} />
-        </Reveal>
-      </Section>
-
-      {/* Cifras + marcas: los dos mensajes del brief, demostrados y no
-          explicados, apenas termina la portada. */}
-      <Section className="border-t border-line">
-        <StatsBand locale={locale} />
-
-        <Reveal className="mt-16">
-          <p className="eyebrow mb-6">
-            {locale === "es" ? "Marcas con las que operamos" : "Brands we operate"}
-          </p>
-          <BrandStrip locale={locale} />
-          <p className="mt-6 max-w-2xl prose-body text-small">
-            {locale === "es"
-              ? "El dueño no está casado con nuestro logo, sino con la marca que mejor rinde para su producto. Esa es la diferencia entre una operadora multimarca y una cadena."
-              : "The owner isn't tied to our logo, but to the brand that performs best for their product. That is the difference between a multi-brand operator and a chain."}
-          </p>
         </Reveal>
       </Section>
 
@@ -103,39 +101,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <Reveal delay={120}>
             <MapMexico locale={locale} />
           </Reveal>
-        </div>
-      </Section>
-
-      {/* Modelos de operación */}
-      <Section className="border-t border-line">
-        <Reveal>
-          <SectionHead
-            eyebrow={locale === "es" ? "Modelos de operación" : "Operating models" }
-            title={
-              locale === "es"
-                ? "Tres formas de entregarnos un activo"
-                : "Three ways to hand us an asset"
-            }
-            intro={
-              locale === "es"
-                ? "Es lo que nos separa de una simple administradora: cada modelo tiene su estructura legal, su operación y su forma de reportar."
-                : "This is what separates us from a plain property manager: each model has its own legal structure, operation and reporting."
-            }
-          />
-        </Reveal>
-
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
-          {operatingModels.map((model, index) => (
-            <Reveal key={model.id} delay={index * 100} className="flex flex-col gap-4 panel p-8 lg:p-10">
-              <h3 className="text-h3 font-medium leading-tight text-ink">
-                {t(model.title, locale)}
-              </h3>
-              <p className="prose-body text-small">{t(model.body, locale)}</p>
-              <p className="mt-auto pt-6 text-[13px] tracking-normal text-terra">
-                {t(model.example, locale)}
-              </p>
-            </Reveal>
-          ))}
         </div>
       </Section>
 
@@ -206,8 +171,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </Section>
 
-        <CTABand locale={locale} />
-      </div>
+      <CTABand locale={locale} />
     </>
   );
 }

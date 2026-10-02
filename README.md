@@ -59,8 +59,12 @@ y enlaces que sobreviven al cambio de idioma.
   devolución del cliente fue que se leía difícil y se veía anticuado. Ahora la
   base es beige y crema; terracota y dorado quedan como acentos. Todos los
   pares de texto sobre fondo están medidos por encima de 4.5:1.
-- **Dos familias.** Fraunces para titulares, Poppins (la de la identidad) para
-  texto e interfaz. Sumar Fraunces está pendiente de aprobación de Monarca.
+- **Una sola familia: Poppins**, como pide el brief. La jerarquía sale de
+  tamaño, peso y cursiva.
+- **Estructura inspirada en Chaletô**: hero con video, franja de marcas, bloques
+  por audiencia que se apilan al bajar, tarjetas con sello y footer oscuro con
+  el logotipo de lado a lado. Se adoptó el lenguaje, no se calcó: Chaletô
+  también opera en Tulum.
 - **El sitio no depende de fotografía.** Casa Selva abre en octubre de 2026 y
   Dazzler en marzo de 2027, así que buena parte del material va a ser render.
   Los fondos son atmósferas construidas en CSS, pensadas para que sustituirlas
@@ -82,6 +86,8 @@ Contenido que depende del cliente (marcado con `TODO` en el código):
 - [ ] Cifras agregadas confirmadas (`stats` en `site.ts`)
 - [ ] Deck corporativo en PDF, versión final
 - [ ] Fotos: retratos de los tres socios, propiedades en operación, renders
+- [ ] Video del hero en `public/media/hero.mp4` (10–20 s, 1080p, sin audio, < 8 MB).
+      Mientras no esté, el hero muestra el póster definido en `heroVideo` (`site.ts`)
 - [ ] PNG de Wyndham, Ramada, Dazzler, Holiday Inn y Vöco
 - [ ] Trayectoria de los socios y resultado publicable del caso Casa Selva
 - [ ] Enlace real del Portal de Propietarios (oculto del sitio hasta que esté armado)

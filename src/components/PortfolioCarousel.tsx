@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale, Property } from "@/content/site";
-import { t, ui } from "@/lib/i18n";
+import { href, routes } from "@/lib/i18n";
+import PropertyCard, { SeeAllCard } from "./PropertyCard";
 
 /**
  * Carrusel del portafolio. Reemplaza al zoom del logo, que la devolución
@@ -16,8 +17,8 @@ import { t, ui } from "@/lib/i18n";
  * Sin autoplay a propósito. Un carrusel que avanza solo obliga a sumar pausa,
  * y además mueve el contenido mientras alguien lo está leyendo.
  *
- * Cada tarjeta sale al sitio del hotel en pestaña nueva cuando lo tiene, igual
- * que en la página de portafolio.
+ * Usa la misma tarjeta que la página de portafolio, y cierra con el bloque
+ * "Ver todo", como la grilla de Chaletô.
  */
 export default function PortfolioCarousel({
   properties,
@@ -103,76 +104,14 @@ export default function PortfolioCarousel({
             aria-label={`${index + 1} / ${properties.length}`}
             className="w-[82vw] shrink-0 snap-start sm:w-[46vw] lg:w-[30vw] xl:w-[26vw]"
           >
-            <Slide property={property} locale={locale} />
+            <PropertyCard property={property} locale={locale} />
           </li>
         ))}
+        <li className="w-[82vw] shrink-0 snap-start sm:w-[46vw] lg:w-[30vw] xl:w-[26vw]">
+          <SeeAllCard href={href(locale, routes.portfolio)} locale={locale} />
+        </li>
       </ul>
     </div>
-  );
-}
-
-function Slide({ property, locale }: { property: Property; locale: Locale }) {
-  const isOperating = property.status === "operating";
-  const meta = [
-    property.keys ? `${property.keys} ${ui("keys", locale)}` : null,
-    property.units ? `${property.units} ${ui("units", locale)}` : null,
-  ].filter(Boolean);
-
-  const body = (
-    <>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
-        {property.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={property.image}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
-          />
-        ) : (
-          <div className="photo-placeholder grain h-full w-full" aria-hidden="true" />
-        )}
-
-        <span
-          className={`absolute left-4 top-4 rounded-full px-3.5 py-1.5 text-[12px] font-medium backdrop-blur-md ${
-            isOperating ? "bg-surface/90 text-ink" : "bg-ink/80 text-page"
-          }`}
-        >
-          {isOperating ? ui("operating", locale) : ui("opening", locale)}
-        </span>
-      </div>
-
-      <div className="mt-5 flex flex-col gap-1.5 px-1">
-        {property.brandLabel && (
-          <p className="eyebrow">{property.brandLabel}</p>
-        )}
-        <h3 className="text-h3 text-ink">{property.name}</h3>
-        <p className="text-[14px] text-ink-faint">
-          {t(property.city, locale)}
-          {meta.length > 0 && ` · ${meta.join(" · ")}`}
-        </p>
-        {property.opening && (
-          <p className="text-[14px] text-terra">{t(property.opening, locale)}</p>
-        )}
-      </div>
-    </>
-  );
-
-  if (!property.href) {
-    return <article className="group">{body}</article>;
-  }
-
-  return (
-    <a
-      href={property.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block"
-      title={ui("externalLink", locale)}
-    >
-      {body}
-    </a>
   );
 }
 

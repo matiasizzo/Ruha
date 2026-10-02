@@ -1,184 +1,60 @@
-import Link from "next/link";
 import type { Locale } from "@/content/site";
-import { brand, heroMedia } from "@/content/site";
-import { href, routes, t, ui } from "@/lib/i18n";
-import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
-import Isotipo from "./brand/Isotipo";
+import { heroVideo } from "@/content/site";
+import { href, routes, ui } from "@/lib/i18n";
 import { ButtonLink } from "@/components/ui/button";
+import Isotipo from "./brand/Isotipo";
+import HeroVideo from "./HeroVideo";
 
 /**
- * Portada. Es la tesis del sitio: en una pantalla tienen que quedar los dos
- * mensajes del brief —operadora multimarca y operadora nacional— antes de que
- * el visitante haga scroll.
+ * Portada: video de dron a sangre, velo oscuro, isotipo al centro y el
+ * titular abajo a la izquierda. Es el esquema de Chaletô adaptado a RÜHA.
  *
- * El logo va al centro y alrededor flotan, siguiendo al puntero, fotos con su
- * pie. Los pies no son adornos: nombran marcas y destinos reales, que son
- * exactamente los dos mensajes. Salen de heroMedia en site.ts.
- *
- * Tres cosas deliberadas:
- *  - Las piezas flotantes se ocultan en pantallas chicas. El parallax de
- *    puntero no existe en touch, y ocho etiquetas absolutas encima del titular
- *    en un teléfono es un desastre de composición.
- *  - El bloque central no flota. El titular y los botones se quedan quietos.
- *  - El hero es sticky y queda detrás: de ahí sale que las secciones siguientes
- *    suban por encima como una cortina, sin JavaScript. La cortina la hace el
- *    z-index del contenido que sigue (z-10), no uno negativo acá: con -z-10 el
- *    hero quedaba detrás de <main> también para los clics, y los botones se
- *    veían pero no se podían tocar.
- *
- * El fondo es una atmósfera en CSS a propósito: todavía no hay fotos y los dos
- * hoteles insignia no abren hasta 2026 y 2027. Cuando llegue el material se
- * sustituye esa capa sin tocar el resto de la composición.
+ * - No ocupa toda la pantalla (unos 740px en escritorio): asoma lo que sigue,
+ *   y eso invita a bajar.
+ * - El velo al 30% es lo que deja leer el texto blanco sobre cualquier toma.
+ *   Si el video final es muy claro, se sube acá y en ningún otro lado.
+ * - El isotipo va centrado en el tercio superior, no en el centro exacto: ahí
+ *   pisaba la última palabra del titular. Sólo aparece en pantallas grandes.
  */
-
-/**
- * Posiciones, profundidades y tamaño de las piezas flotantes.
- *
- * Los tamaños se varían a propósito: si todas las piezas miden lo mismo, la
- * diferencia de profundidad no se lee como profundidad sino como desorden.
- */
-const SLOTS = [
-  { top: "12%", left: "6%", depth: 0.6, size: "h-24 w-24 lg:h-28 lg:w-28" },
-  { top: "7%", left: "28%", depth: 1.4, size: "h-28 w-36 lg:h-32 lg:w-44" },
-  // En 62% el pie caía dentro del halo central y se leía apagado.
-  { top: "14%", left: "67%", depth: 2.2, size: "h-36 w-28 lg:h-48 lg:w-36" },
-  { top: "9%", left: "84%", depth: 0.9, size: "h-24 w-24 lg:h-28 lg:w-28" },
-  { top: "44%", left: "3%", depth: 1.8, size: "h-32 w-32 lg:h-40 lg:w-40" },
-  { top: "52%", left: "85%", depth: 2.6, size: "h-36 w-28 lg:h-44 lg:w-32" },
-  { top: "70%", left: "11%", depth: 3.2, size: "h-40 w-52 lg:h-44 lg:w-64" },
-  // Corrida a la derecha: en 63% el marco rozaba el botón del centro.
-  { top: "76%", left: "70%", depth: 1.1, size: "h-28 w-28 lg:h-32 lg:w-32" },
-];
-
-/**
- * Pieza flotante: la foto con su pie.
- *
- * El pie no es decorativo. Las fotos de hoy son de stock, pero lo que se lee
- * —marca o destino— es real, así que el hero comunica igual los dos mensajes.
- */
-function FloatingCard({
-  src,
-  label,
-  meta,
-  size,
-  delay,
-}: {
-  src: string;
-  label: string;
-  meta: string;
-  size: string;
-  delay: number;
-}) {
-  return (
-    // La animación de entrada va acá y no en el elemento flotante: animate-fade-up
-    // anima transform y termina en `transform: none` con fill-mode both, así que
-    // su valor final pisaría el transform que escribe el bucle del parallax.
-    <figure className="group animate-fade-up" style={{ animationDelay: `${delay}ms` }}>
-      <div className={`overflow-hidden rounded-2xl border border-line shadow-[0_18px_40px_-24px_rgba(39,20,6,0.45)] ${size}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100"
-        />
-      </div>
-      <figcaption className="mt-2">
-        <p className="whitespace-nowrap text-[12px] font-medium text-ink">{label}</p>
-        <p className="text-[12px] tracking-normal text-ink-faint">{meta}</p>
-      </figcaption>
-    </figure>
-  );
-}
-
 export default function Hero({ locale }: { locale: Locale }) {
   return (
-    <section className="sticky top-0 z-0 h-[100svh] overflow-hidden">
-      {/* Atmósfera. TODO: reemplazar por foto o video cuando lleguen. */}
+    <section className="relative h-[40.75rem] overflow-hidden bg-cacao md:h-[46.375rem]">
+      <HeroVideo src={heroVideo.src} poster={heroVideo.poster} />
+
+      {/* Velo: 30% de negro parejo, más un degradado abajo donde va el texto. */}
+      <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
       <div
-        className="atmosphere grain animate-drift absolute inset-[-8%]"
+        className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/45 to-transparent"
         aria-hidden="true"
       />
 
-      {/* Capa flotante. Sensibilidad negativa: las piezas se alejan del
-          puntero, que da mejor sensación de profundidad que perseguirlo. */}
-      <Floating sensitivity={-1.2} easingFactor={0.06} className="hidden md:block">
-        {/* Dos gotas al fondo, en los extremos de profundidad. */}
-        <FloatingElement depth={0.4} className="left-[-6%] top-[8%]">
-          <Isotipo className="h-[46vh] w-auto text-cafe/[0.12]" />
-        </FloatingElement>
-        <FloatingElement depth={3.6} className="right-[-4%] top-[38%]">
-          <Isotipo layer="spiral" className="h-[30vh] w-auto text-terra/[0.14]" />
-        </FloatingElement>
+      <Isotipo
+        className="animate-fade-up absolute left-1/2 top-[24%] hidden h-32 w-auto -translate-x-1/2 -translate-y-1/2 text-gold xl:block"
+        style={{ animationDelay: "200ms" }}
+      />
 
-        {heroMedia.map((piece, index) => (
-          <FloatingElement
-            key={piece.label}
-            depth={SLOTS[index].depth}
-            style={{ top: SLOTS[index].top, left: SLOTS[index].left }}
+      <div className="relative mx-auto flex h-full w-full max-w-[1400px] items-end px-6 pb-12 pt-32 lg:px-12 lg:pb-[7.5rem]">
+        <div className="flex max-w-[40rem] flex-col gap-10">
+          <h1
+            className="animate-fade-up text-[clamp(2.25rem,5vw,3.75rem)] font-medium leading-[1.08] tracking-[-0.02em] text-white"
+            style={{ animationDelay: "300ms" }}
           >
-            <FloatingCard
-              src={piece.src}
-              label={piece.label}
-              meta={piece.meta}
-              size={SLOTS[index].size}
-              delay={index * 90}
-            />
-          </FloatingElement>
-        ))}
-      </Floating>
+            {locale === "es"
+              ? "Operamos hoteles de marca internacional en México."
+              : "We operate internationally branded hotels in Mexico."}
+          </h1>
 
-      {/* Halo claro detrás del bloque central: el texto mantiene contraste
-          aunque una foto flotante le pase por detrás. */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_40%_46%_at_50%_54%,rgba(247,243,234,0.95),rgba(247,243,234,0.55)_68%,transparent)]"
-        aria-hidden="true"
-      />
-
-      {/* Bloque central: quieto. */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <Isotipo
-          className="animate-fade-up h-16 w-auto text-terra lg:h-20"
-          style={{ animationDelay: "80ms" }}
-        />
-
-        <p
-          className="animate-fade-up mt-7 font-medium tracking-[0.34em] text-ink"
-          style={{ animationDelay: "180ms", fontSize: "clamp(1.75rem,4vw,2.75rem)" }}
-        >
-          {brand.name}
-        </p>
-
-        <p className="eyebrow animate-fade-up mt-4" style={{ animationDelay: "280ms" }}>
-          {t(brand.tagline, locale)}
-        </p>
-
-        <h1
-          className="display animate-fade-up mt-10 max-w-[18ch] text-h1 text-ink"
-          style={{ animationDelay: "380ms" }}
-        >
-          {locale === "es" ? (
-            <>
-              Operamos hoteles de <span className="italic text-terra">marca internacional</span> en México.
-            </>
-          ) : (
-            <>
-              We operate <span className="italic text-terra">internationally branded</span> hotels in Mexico.
-            </>
-          )}
-        </h1>
-
-        <div
-          className="animate-fade-up mt-10 flex flex-col gap-3 sm:flex-row"
-          style={{ animationDelay: "500ms" }}
-        >
-          <ButtonLink href={href(locale, routes.developers)} variant="primary" arrow>
+          <div
+            className="animate-fade-up flex flex-wrap items-center gap-4"
+            style={{ animationDelay: "450ms" }}
+          >
+            <ButtonLink href={href(locale, routes.developers)} variant="dark" arrow>
               {locale === "es" ? "Para desarrolladores" : "For developers"}
             </ButtonLink>
-          <ButtonLink href={href(locale, routes.portfolio)} variant="secondary" arrow>
+            <ButtonLink href={href(locale, routes.portfolio)} variant="light" arrow>
               {ui("viewPortfolio", locale)}
             </ButtonLink>
+          </div>
         </div>
       </div>
     </section>
