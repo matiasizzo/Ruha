@@ -391,3 +391,38 @@ html[data-intro="seen"] .brand-loader {
     overflow-x: auto;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Bloques por audiencia (ver AudienceStack.tsx y ArrivalSection.tsx)  */
+/* ------------------------------------------------------------------ */
+
+/*
+  Imán suave: sólo en escritorio y en modo "proximity". Si el scroll se suelta
+  cerca del comienzo de un bloque, se acomoda; si se suelta lejos, queda donde
+  está. Los únicos puntos de anclaje son los marcadores de los bloques por
+  audiencia, así que el resto de la página scrollea libre.
+*/
+@media (min-width: 1024px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* Las fotos entran cuando el bloque llegó, escalonadas por --d. */
+.arrive-item {
+  transition:
+    opacity 1s var(--ease-out-soft),
+    transform 1.1s var(--ease-out-soft);
+  transition-delay: var(--d, 0ms);
+}
+
+[data-arrived="false"] .arrive-item {
+  opacity: 0;
+  transform: translateY(48px) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive-item {
+    transition: none;
+  }
+}

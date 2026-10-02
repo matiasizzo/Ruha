@@ -1,9 +1,11 @@
+import { Fragment } from "react";
 import type { Audience, Locale } from "@/content/site";
 import { audiences } from "@/content/site";
 import { href, routes, t } from "@/lib/i18n";
 import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import DropPattern from "./brand/DropPattern";
+import ArrivalSection from "./ArrivalSection";
 import Reveal from "./Reveal";
 
 /**
@@ -14,6 +16,16 @@ import Reveal from "./Reveal";
  * En escritorio cada bloque mide una pantalla y es sticky: al bajar, el
  * siguiente sube y tapa al anterior, sin una línea de JavaScript. En móvil se
  * apilan normal, porque una pantalla fija con este texto no entra.
+ *
+ * Tres detalles para que no queden a medias mientras se leen:
+ *  - Pausa: después de cada bloque hay media pantalla de recorrido vacío. El
+ *    bloque queda quieto y completo mientras se lee, y recién después sube el
+ *    siguiente.
+ *  - Imán suave: un marcador invisible al comienzo de cada bloque es punto de
+ *    anclaje del scroll-snap en modo proximity (ver globals.css). El marcador
+ *    no es sticky, por eso se usa en lugar del propio bloque.
+ *  - Las fotos entran cuando el bloque ya llegó (ArrivalSection), no apenas
+ *    asoma, así la animación se ve entera.
  *
  * Las fotos son PROVISIONALES (stock) y viven en site.ts.
  */
@@ -45,9 +57,13 @@ export default function AudienceStack({ locale }: { locale: Locale }) {
       {audiences.map((audience, index) => {
         const tone = TONES[audience.tone];
         return (
-          <section
-            key={audience.id}
-            aria-labelledby={`audience-${audience.id}`}
+          <Fragment key={audience.id}>
+          {/* Punto de anclaje del imán. El margen negativo compensa el
+              scroll-padding-top del header, para que el bloque calce
+              exacto arriba y no 96px más abajo. */}
+          <div className="lg:snap-start lg:scroll-mt-[-96px]" aria-hidden="true" />
+          <ArrivalSection
+            labelledBy={`audience-${audience.id}`}
             // z-index creciente: cada bloque tapa al anterior al apilarse.
             style={{ zIndex: index + 1 }}
             className={cn(
@@ -87,24 +103,27 @@ export default function AudienceStack({ locale }: { locale: Locale }) {
                 {/* Dos fotos desfasadas: una alta arriba, otra apaisada más abajo
                     y corrida, como en Chaletô. En móvil van en fila. */}
                 <div className="relative grid grid-cols-2 gap-4 lg:block lg:min-h-[420px]">
-                  <Reveal
-                    delay={200}
-                    className="aspect-[0.93] overflow-hidden lg:absolute lg:right-[34%] lg:top-0 lg:w-[42%]"
+                  <div
+                    style={{ "--d": "150ms" } as React.CSSProperties}
+                    className="arrive-item aspect-[0.93] overflow-hidden lg:absolute lg:right-[34%] lg:top-0 lg:w-[42%]"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={audience.images[0]} alt="" loading="lazy" className="h-full w-full object-cover" />
-                  </Reveal>
-                  <Reveal
-                    delay={320}
-                    className="aspect-[1.39] self-end overflow-hidden lg:absolute lg:right-0 lg:top-44 lg:w-[48%]"
+                  </div>
+                  <div
+                    style={{ "--d": "380ms" } as React.CSSProperties}
+                    className="arrive-item aspect-[1.39] self-end overflow-hidden lg:absolute lg:right-0 lg:top-44 lg:w-[48%]"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={audience.images[1]} alt="" loading="lazy" className="h-full w-full object-cover" />
-                  </Reveal>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
+          </ArrivalSection>
+          {/* Pausa: el bloque queda quieto y completo mientras se lee. */}
+          <div className="hidden h-[50svh] lg:block" aria-hidden="true" />
+          </Fragment>
         );
       })}
     </div>
