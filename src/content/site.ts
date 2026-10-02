@@ -278,7 +278,7 @@ export const privatePortfolioNote: I18nText = {
  * debajo de 8 MB.
  */
 export const heroVideo = {
-  src: "/media/hero.mp4",
+  src: "/media/ruhavideotest.mp4",
   // PROVISIONAL: foto de stock como póster. No es de una propiedad de RÜHA.
   poster: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1400&auto=format&fit=crop",
 };

@@ -86,7 +86,7 @@ Contenido que depende del cliente (marcado con `TODO` en el código):
 - [ ] Cifras agregadas confirmadas (`stats` en `site.ts`)
 - [ ] Deck corporativo en PDF, versión final
 - [ ] Fotos: retratos de los tres socios, propiedades en operación, renders
-- [ ] Video del hero en `public/media/hero.mp4` (10–20 s, 1080p, sin audio, < 8 MB).
+- [ ] Video del hero en `public/media/ruhavideotest.mp4` (10–20 s, 1080p, sin audio, < 8 MB).
       Mientras no esté, el hero muestra el póster definido en `heroVideo` (`site.ts`)
 - [ ] PNG de Wyndham, Ramada, Dazzler, Holiday Inn y Vöco
 - [ ] Trayectoria de los socios y resultado publicable del caso Casa Selva
