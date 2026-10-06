@@ -46,8 +46,8 @@ export default function Header({ locale }: { locale: Locale }) {
     >
       <div className="mx-auto flex max-w-[1400px] items-center gap-6 px-6 py-5 lg:px-12">
         <Link href={href(locale)} className="shrink-0">
-          {/* 18px es el mínimo con el que la "A" gota del logo sigue legible. */}
-          <Wordmark className="text-[18px] transition-colors group-data-[over=true]:text-white" />
+          {/* Terracota sobre la base clara; crema encima del video del hero. */}
+          <Wordmark className="h-9 w-auto text-terra transition-colors group-data-[over=true]:text-cream" />
         </Link>
 
         <nav className="ml-auto hidden items-center gap-8 lg:flex">

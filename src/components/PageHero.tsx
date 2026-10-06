@@ -29,7 +29,7 @@ export default function PageHero({
         speed={-6}
         className="pointer-events-none absolute right-[-10%] top-[-20%] h-[150%] w-auto text-cafe/[0.10]"
       >
-        <Isotipo layer="outline" className="h-full w-auto" />
+        <Isotipo className="h-full w-auto" />
       </Parallax>
 
       <Container className="relative pb-16 pt-40 lg:pb-24 lg:pt-48">

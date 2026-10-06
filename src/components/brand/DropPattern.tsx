@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { OUTLINE } from "./Isotipo";
+import { ISOTIPO_PATH } from "./logo-paths";
 
 /**
  * Patrón de gotas para fondos. Es decoración pura: va siempre tenue, detrás
@@ -21,11 +21,12 @@ export default function DropPattern({
     <svg className={className} aria-hidden="true" focusable="false" width="100%" height="100%">
       <defs>
         <pattern id={`drop-${id}`} width="120" height="176" patternUnits="userSpaceOnUse">
-          <g transform="translate(14 8) scale(0.36)" stroke="currentColor" strokeWidth="5" fill="none">
-            <path d={OUTLINE} />
+          {/* La gota oficial mide 590 × 1036; a 0.05 queda de unos 30 × 52. */}
+          <g transform="translate(16 8) scale(0.05)" fill="currentColor">
+            <path d={ISOTIPO_PATH} />
           </g>
-          <g transform="translate(74 96) scale(0.36)" stroke="currentColor" strokeWidth="5" fill="none">
-            <path d={OUTLINE} />
+          <g transform="translate(76 96) scale(0.05)" fill="currentColor">
+            <path d={ISOTIPO_PATH} />
           </g>
         </pattern>
         <linearGradient id={`fade-${id}`} x1="0" y1="0" x2="0" y2="1">

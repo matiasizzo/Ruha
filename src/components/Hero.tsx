@@ -29,7 +29,7 @@ export default function Hero({ locale }: { locale: Locale }) {
       />
 
       <Isotipo
-        className="animate-fade-up absolute left-1/2 top-[24%] hidden h-32 w-auto -translate-x-1/2 -translate-y-1/2 text-gold xl:block"
+        className="animate-fade-up absolute left-1/2 top-[24%] hidden h-32 w-auto -translate-x-1/2 -translate-y-1/2 text-cream xl:block"
         style={{ animationDelay: "200ms" }}
       />
 

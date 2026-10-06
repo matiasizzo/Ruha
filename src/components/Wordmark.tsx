@@ -1,20 +1,23 @@
 import { brand } from "@/content/site";
+import { WORDMARK_PATH, WORDMARK_VIEWBOX } from "./brand/logo-paths";
 
 /**
- * Marca denominativa provisional en tipografía.
+ * Logo completo de RÜHA (letras y gota), sin la frase de abajo.
  *
- * TODO: reemplazar por los vectoriales de Monarca cuando lleguen. Dos
- * restricciones del manual que hay que respetar al hacerlo: la "A" resuelta
- * como gota pierde legibilidad en tamaños chicos —de ahí el mínimo de 18px en
- * el header— y la diéresis nunca se omite.
+ * El color sale de `currentColor`: se elige con `text-terra`, `text-cacao` o
+ * `text-cream`. El tamaño se da con alto y ancho automático (`h-8 w-auto`) o al
+ * revés (`w-full h-auto`); la proporción sale del viewBox.
  */
 export default function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <span
-      className={`font-medium tracking-[0.3em] text-ink ${className}`}
+    <svg
+      viewBox={WORDMARK_VIEWBOX}
+      className={className}
+      fill="currentColor"
+      role="img"
       aria-label={brand.name}
     >
-      {brand.name}
-    </span>
+      <path d={WORDMARK_PATH} />
+    </svg>
   );
 }

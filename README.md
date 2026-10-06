@@ -82,7 +82,8 @@ y enlaces que sobreviven al cambio de idioma.
 
 Contenido que depende del cliente (marcado con `TODO` en el código):
 
-- [ ] Vectoriales del logo y manual de marca de Monarca
+- [x] Logo oficial aplicado (vectorizado de los PNG del cliente, sin la frase "Real Estate & Rent Management"; trazados en `src/components/brand/logo-paths.ts`, archivos en `public/brand/`)
+- [ ] SVG originales y manual de marca de Monarca, para reemplazar la vectorización
 - [ ] Cifras agregadas confirmadas (`stats` en `site.ts`)
 - [ ] Deck corporativo en PDF, versión final
 - [ ] Fotos: retratos de los tres socios, propiedades en operación, renders

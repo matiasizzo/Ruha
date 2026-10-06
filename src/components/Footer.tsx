@@ -4,6 +4,7 @@ import { brand } from "@/content/site";
 import { dict, href, routes, t, ui } from "@/lib/i18n";
 import { RoundArrowLink } from "./brand/BrandArrow";
 import DropPattern from "./brand/DropPattern";
+import Wordmark from "./Wordmark";
 
 /**
  * Footer oscuro con el logotipo de lado a lado, como el de Chaletô.
@@ -12,9 +13,7 @@ import DropPattern from "./brand/DropPattern";
  * audiencia: la base sigue siendo clara, como pidió la devolución, y el
  * oscuro queda para cerrar.
  *
- * El logotipo gigante es PROVISIONAL: va en Poppins hasta que lleguen los
- * vectoriales de Monarca. Se dibuja en SVG con textLength para que ocupe
- * exactamente el ancho disponible en cualquier pantalla.
+ * El logo gigante es el oficial en su variante crema, a todo el ancho.
  */
 
 const columnTitle = "text-[15px] font-medium text-page";
@@ -78,26 +77,8 @@ export default function Footer({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Logotipo de lado a lado. */}
-        <svg
-          // Margen arriba para la diéresis: el brief pide que nunca se omita, y
-          // con el texto pegado al borde del viewBox quedaba cortada.
-          viewBox="0 0 1000 320"
-          className="mt-20 h-auto w-full text-page"
-          role="img"
-          aria-label={brand.name}
-        >
-          <text
-            x="0"
-            y="300"
-            textLength="1000"
-            lengthAdjust="spacingAndGlyphs"
-            fill="currentColor"
-            style={{ fontFamily: "var(--font-poppins)", fontWeight: 500, fontSize: "300px" }}
-          >
-            {brand.name}
-          </text>
-        </svg>
+        {/* Logo de lado a lado. */}
+        <Wordmark className="mt-20 h-auto w-full text-cream" />
 
         <div className="mt-8 flex flex-col gap-3 border-t border-page/15 pt-6 text-[13px] text-page/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
